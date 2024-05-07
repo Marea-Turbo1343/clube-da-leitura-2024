@@ -1,6 +1,6 @@
 ﻿namespace ClubeDaLeitura.ConsoleApp.Functions
 {
-    internal class BasicFunctions
+    internal class FuncoesBasicas
     {
         #region Caixa de Objetos
         TelaMensagens mensagem;

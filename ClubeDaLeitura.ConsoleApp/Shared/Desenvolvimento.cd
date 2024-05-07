@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ClubeDaLeitura.ConsoleApp.Amigo">
+    <Position X="3" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAIAAAAAAAAAAAAAAAAAAAAAAEAEAA=</HashCode>
+      <FileName>Amigo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClubeDaLeitura.ConsoleApp.Emprestimo">
+    <Position X="6.5" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAABBAAAAAAEAEAAA=</HashCode>
+      <FileName>Emprestimo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Amigo" />
+      <Property Name="Revista" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ClubeDaLeitura.ConsoleApp.Revista">
+    <Position X="6.5" Y="3.75" Width="2.25" />
+    <AssociationLine Name="Caixa" Type="ClubeDaLeitura.ConsoleApp.Caixa" FixedFromPoint="true">
+      <Path>
+        <Point X="7" Y="5.238" />
+        <Point X="7" Y="5.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.1" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAIAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Revista.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Caixa" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ClubeDaLeitura.ConsoleApp.Caixa">
+    <Position X="6.5" Y="5.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAABAAAAAAAAAEAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Caixa.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Revistas" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

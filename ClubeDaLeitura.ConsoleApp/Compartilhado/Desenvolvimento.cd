@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ClubeDaLeitura.ConsoleApp.ModuloAmigo.Amigo">
+    <Position X="3.25" Y="1.75" Width="2.25" />
+    <AssociationLine Name="HistoricoDeMulta" Type="ClubeDaLeitura.ConsoleApp.ModuloMulta.Multa">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.104" Y="0.233" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAIAAAAAAAAAAAAAAgAAAAAAAEAEAA=</HashCode>
+      <FileName>ModuloAmigo\Amigo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="HistoricoDeMulta" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ClubeDaLeitura.ConsoleApp.ModuloCaixa.Caixa">
+    <Position X="7.25" Y="6" Width="1.5" />
+    <AssociationLine Name="Revistas" Type="ClubeDaLeitura.ConsoleApp.ModuloRevista.Revista" FixedToPoint="true">
+      <Path>
+        <Point X="7.688" Y="6" />
+        <Point X="7.688" Y="5.488" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.164" Y="0.084" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAABAAAAAAAAAEAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>ModuloCaixa\Caixa.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Revistas" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ClubeDaLeitura.ConsoleApp.ModuloEmprestimo.Emprestimo">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAABBAAAAAAEAEAAA=</HashCode>
+      <FileName>ModuloEmprestimo\Emprestimo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Amigo1" />
+      <Property Name="Revista" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ClubeDaLeitura.ConsoleApp.ModuloMulta.Multa">
+    <Position X="3.25" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModuloMulta\Multa.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClubeDaLeitura.ConsoleApp.ModuloRevista.Revista">
+    <Position X="7.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAIAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>ModuloRevista\Revista.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Caixa" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,8 +1,14 @@
-﻿namespace ClubeDaLeitura.ConsoleApp
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using ClubeDaLeitura.ConsoleApp.ModuloRevista;
+
+namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
-    public class Emprestimo
+    public class Caixa
     {
-        public int Concluido
+        public int Cor
         {
             get => default;
             set
@@ -10,7 +16,7 @@
             }
         }
 
-        public int Data
+        public int Etiqueta
         {
             get => default;
             set
@@ -18,7 +24,7 @@
             }
         }
 
-        public int DataDevolucao
+        public int TempoEmprestimo
         {
             get => default;
             set
@@ -26,15 +32,7 @@
             }
         }
 
-        public Amigo Amigo
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public Revista Revista
+        public Revista[] Revistas
         {
             get => default;
             set

@@ -1,7 +1,6 @@
-﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
-using System.Collections;
+﻿using System.Collections;
 
-namespace ControleMedicamentos.ConsoleApp.Compartilhado
+namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 {
     internal abstract class TelaBase
     {
@@ -151,7 +150,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             Console.Clear();
 
             Console.WriteLine("----------------------------------------");
-            Console.WriteLine("|       Controle de Medicamentos       |");
+            Console.WriteLine("|           Clube da Leitura           |");
             Console.WriteLine("----------------------------------------");
 
             Console.WriteLine();

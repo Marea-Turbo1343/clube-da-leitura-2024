@@ -2,14 +2,13 @@
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using System.Collections;
 
-namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
+namespace ClubeDaLeitura.ConsoleApp.ModuloMedicamento
 {
-    internal class Revista: EntidadeBase
+    internal class Revista : EntidadeBase
     {
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
-        public string Lote { get; set; }
-        public DateTime DataValidade { get; set; }
+        public string Titulo { get; set; }
+        public string Numero { get; set; }
+        public DateTime DataAno { get; set; }
         public Caixa Caixa { get; set; }
 
         public Revista(
@@ -19,48 +18,41 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             Caixa caixa
         )
         {
-            Nome = nome;
-            Descricao = descricao;
-            Lote = lote;
-            DataValidade = dataValidade;
-            Fornecedor = fornecedor;
-            Quantidade = quantidade;
+            Titulo = titulo;
+            Numero = numero;
+            DataAno = dataAno;
+            Caixa = caixa;
         }
 
         public override ArrayList Validar()
         {
             ArrayList erros = new ArrayList();
 
-            if (string.IsNullOrEmpty(Nome.Trim()))
-                erros.Add("O campo \"nome\" é obrigatório");
+            if (string.IsNullOrEmpty(Titulo.Trim()))
+                erros.Add("O campo \"titulo\" é obrigatório");
 
-            if (string.IsNullOrEmpty(Descricao.Trim()))
-                erros.Add("O campo \"descrição\" é obrigatório");
+            if (string.IsNullOrEmpty(Numero.Trim()))
+                erros.Add("O campo \"numero\" é obrigatório");
 
-            if (string.IsNullOrEmpty(Lote.Trim()))
-                erros.Add("O campo \"lote\" é obrigatório");
-
-            if (Fornecedor == null)
-                erros.Add("O campo \"fornecedor\" é obrigatório");
+            if (Caixa == null)
+                erros.Add("O campo \"caixa\" é obrigatório");
 
             DateTime hoje = DateTime.Now.Date;
 
-            if (DataValidade < hoje)
-                erros.Add("O campo \"data de validade\" não pode ser menor que a data atual");
+            if (DataAno < hoje)
+                erros.Add("O campo \"data do ano\" não pode ser menor que a data atual");
 
             return erros;
         }
 
-        public override void AtualizarRegistro(EntidadeBase novoegistro)
+        public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
-            Medicamento novasInformacoes = (Medicamento)novoegistro;
+            Revista novasInformacoes = (Revista)novoRegistro;
 
-            this.Nome = novasInformacoes.Nome;
-            this.Descricao = novasInformacoes.Descricao;
-            this.Lote = novasInformacoes.Lote;
-            this.DataValidade = novasInformacoes.DataValidade;
-            this.Fornecedor = novasInformacoes.Fornecedor;
-            this.Quantidade = novasInformacoes.Quantidade;
+            this.Titulo = novasInformacoes.Titulo;
+            this.Numero = novasInformacoes.Numero;
+            this.DataAno = novasInformacoes.DataAno;
+            this.Caixa = novasInformacoes.Caixa;
         }
     }
 }

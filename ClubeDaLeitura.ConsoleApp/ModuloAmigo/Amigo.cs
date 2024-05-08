@@ -10,7 +10,7 @@
 
         public int Telefone { get; set; }
 
-        public ClubeDaLeitura.ConsoleApp.ModuloMulta.Multa[] HistoricoDeMulta { get; set; }
+        public Multa[] HistoricoDeMulta { get; set; }
 
     }
 }

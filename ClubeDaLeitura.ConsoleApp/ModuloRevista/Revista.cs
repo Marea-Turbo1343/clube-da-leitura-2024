@@ -1,39 +1,66 @@
-﻿using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
+﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
+using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 {
-    public class Revista
+    internal class Revista: EntidadeBase
     {
-        public int Ano
+        public string Nome { get; set; }
+        public string Descricao { get; set; }
+        public string Lote { get; set; }
+        public DateTime DataValidade { get; set; }
+        public Caixa Caixa { get; set; }
+
+        public Revista(
+            string titulo,
+            string numero,
+            DateTime dataAno,
+            Caixa caixa
+        )
         {
-            get => default;
-            set
-            {
-            }
+            Nome = nome;
+            Descricao = descricao;
+            Lote = lote;
+            DataValidade = dataValidade;
+            Fornecedor = fornecedor;
+            Quantidade = quantidade;
         }
 
-        public int NumeroEdicao
+        public override ArrayList Validar()
         {
-            get => default;
-            set
-            {
-            }
+            ArrayList erros = new ArrayList();
+
+            if (string.IsNullOrEmpty(Nome.Trim()))
+                erros.Add("O campo \"nome\" é obrigatório");
+
+            if (string.IsNullOrEmpty(Descricao.Trim()))
+                erros.Add("O campo \"descrição\" é obrigatório");
+
+            if (string.IsNullOrEmpty(Lote.Trim()))
+                erros.Add("O campo \"lote\" é obrigatório");
+
+            if (Fornecedor == null)
+                erros.Add("O campo \"fornecedor\" é obrigatório");
+
+            DateTime hoje = DateTime.Now.Date;
+
+            if (DataValidade < hoje)
+                erros.Add("O campo \"data de validade\" não pode ser menor que a data atual");
+
+            return erros;
         }
 
-        public int Titulo
+        public override void AtualizarRegistro(EntidadeBase novoegistro)
         {
-            get => default;
-            set
-            {
-            }
-        }
+            Medicamento novasInformacoes = (Medicamento)novoegistro;
 
-        public Caixa Caixa
-        {
-            get => default;
-            set
-            {
-            }
+            this.Nome = novasInformacoes.Nome;
+            this.Descricao = novasInformacoes.Descricao;
+            this.Lote = novasInformacoes.Lote;
+            this.DataValidade = novasInformacoes.DataValidade;
+            this.Fornecedor = novasInformacoes.Fornecedor;
+            this.Quantidade = novasInformacoes.Quantidade;
         }
     }
 }

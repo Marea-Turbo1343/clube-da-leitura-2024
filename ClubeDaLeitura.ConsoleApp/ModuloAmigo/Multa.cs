@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ClubeDaLeitura.ConsoleApp.ModuloMulta
+namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
     public class Multa
     {

@@ -6,9 +6,6 @@
         {
             Console.Clear();
 
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine("|       Controle de Medicamentos       |");
-            Console.WriteLine("----------------------------------------");
 
             Console.WriteLine();
 

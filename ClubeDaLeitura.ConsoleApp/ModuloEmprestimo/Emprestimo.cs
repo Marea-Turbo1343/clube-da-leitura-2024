@@ -14,13 +14,5 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         public Amigo Amigo { get; set; }
 
         public Revista Revista { get; set; }
-
-        public Amigo Amigo1
-        {
-            get => default;
-            set
-            {
-            }
-        }
     }
 }

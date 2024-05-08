@@ -2,12 +2,12 @@
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using System.Collections;
 
-namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
+namespace ClubeDaLeitura.ConsoleApp.ModuloMedicamento
 {
     internal class TelaRevista : TelaBase
     {
-        public TelaFornecedor telaFornecedor = null;
-        public RepositorioFornecedor repositorioFornecedor = null;
+        public TelaCaixa telaCaixa = null;
+        public RepositorioCaixa repositorioCaixa = null;
 
         public override void VisualizarRegistros(bool exibirTitulo)
         {
@@ -15,26 +15,26 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             {
                 ApresentarCabecalho();
 
-                Console.WriteLine("Visualizando Medicamentos...");
+                Console.WriteLine("Visualizando Revistas...");
             }
 
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -20} | {2, -20} | {3, -20}",
-                "Id", "Nome", "Fornecedor", "Quantidade"
+                "{0, -10} | {1, -20} | {2, -20} | {3, -20} | {4, -20}",
+                "Id", "Titulo", "Numero", "DataAno", "Caixa"
             );
 
-            ArrayList medicamentosCadastrados = repositorio.SelecionarTodos();
+            ArrayList revistasCadastradas = repositorio.SelecionarTodos();
 
-            foreach (Medicamento medicamento in medicamentosCadastrados)
+            foreach (Revista revista in revistasCadastradas)
             {
-                if (medicamento == null)
+                if (revista == null)
                     continue;
 
                 Console.WriteLine(
-                    "{0, -10} | {1, -20} | {2, -20} | {3, -20}",
-                    medicamento.Id, medicamento.Nome, medicamento.Fornecedor.Nome, medicamento.Quantidade
+                    "{0, -10} | {1, -20} | {2, -20} | {3, -20} | {4, -20}",
+                    revista.Id, revista.Titulo, revista.Numero, revista.DataAno, revista.Caixa
                 );
             }
 
@@ -44,11 +44,11 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
         protected override EntidadeBase ObterRegistro()
         {
-            Console.Write("Digite o nome: ");
-            string nome = Console.ReadLine();
+            Console.Write("Digite o titulo da revista: ");
+            string titulo = Console.ReadLine();
 
-            Console.Write("Digite a descrição: ");
-            string descricao = Console.ReadLine();
+            Console.Write("Digite o número da revista: ");
+            string numero = Console.ReadLine();
 
             Console.Write("Digite o lote: ");
             string lote = Console.ReadLine();

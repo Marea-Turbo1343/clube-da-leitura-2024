@@ -1,43 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ClubeDaLeitura.ConsoleApp.ModuloRevista;
+﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
-    public class Caixa
+    internal class Caixa : EntidadeBase
     {
-        public int Cor
+        public string Etiqueta { get; set; }
+        public string Cor { get; set; }
+        public string DiasEmprestimo { get; set; }
+        public string Revistas { get; set; }
+
+
+        public Caixa(string etiqueta, string cor, string diasEmprestimo, string revistas)
         {
-            get => default;
-            set
-            {
-            }
+            Etiqueta = etiqueta;
+            Cor = cor;
+            DiasEmprestimo = diasEmprestimo;
+            Revistas = revistas;
         }
 
-        public int Etiqueta
+        public override ArrayList Validar()
         {
-            get => default;
-            set
-            {
-            }
+            ArrayList erros = new ArrayList();
+
+            if (string.IsNullOrEmpty(Etiqueta.Trim()))
+                erros.Add("O campo \"etiqueta\" é obrigatório");
+
+            if (string.IsNullOrEmpty(Cor.Trim()))
+                erros.Add("O campo \"cor\" é obrigatório");
+
+            if (string.IsNullOrEmpty(DiasEmprestimo.Trim()))
+                erros.Add("O campo \"diasEmprestimo\" é obrigatório");
+
+            if (string.IsNullOrEmpty(Revistas.Trim()))
+                erros.Add("O campo \"revistas\" é obrigatório");
+
+            return erros;
         }
 
-        public int TempoEmprestimo
+        public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
-            get => default;
-            set
-            {
-            }
-        }
+            Caixa novasInformacoes = (Caixa)novoRegistro;
 
-        public Revista[] Revistas
-        {
-            get => default;
-            set
-            {
-            }
+            this.Etiqueta = novasInformacoes.Etiqueta;
+            this.Cor = novasInformacoes.Cor;
+            this.DiasEmprestimo = novasInformacoes.DiasEmprestimo;
+            this.Revistas = novasInformacoes.Revistas;
         }
     }
 }

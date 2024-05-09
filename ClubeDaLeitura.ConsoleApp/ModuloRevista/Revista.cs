@@ -2,7 +2,7 @@
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using System.Collections;
 
-namespace ClubeDaLeitura.ConsoleApp.ModuloMedicamento
+namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 {
     internal class Revista : EntidadeBase
     {

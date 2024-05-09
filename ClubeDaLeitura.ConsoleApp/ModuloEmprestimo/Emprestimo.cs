@@ -1,13 +1,15 @@
-﻿using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
+using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 {
-    public class Emprestimo
+    internal class Emprestimo : EntidadeBase
     {
-        public Amigo Amigo { get; set; }
 
         public Revista Revista { get; set; }
+        public Amigo Amigo { get; set; }
 
         public DateTime Data { get; set; }
 
@@ -15,22 +17,36 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
         public bool Concluido { get; set; }
 
-        public Emprestimo()
+        public Emprestimo(Revista revistaSelecionada, Amigo amigoSelecionado)
         {
+            Revista = revistaSelecionada;
+            Amigo = amigoSelecionado;
             Data = DateTime.Now;
-
             DataDevolucao = Data.AddDays(Revista.Caixa.TempoEmprestimo); // 3
         }
 
-        public Emprestimo(Amigo amigo, Revista revista)
+        //public Emprestimo(Amigo amigo, Revista revista)
+        //{
+        //    Amigo = amigo;
+        //
+        //    Revista = revista;
+        //
+        //    Data = DateTime.Now;
+        //
+        //   DataDevolucao = Data.AddDays(Revista.Caixa.TempoEmprestimo); // 3
+        //}
+
+        public override ArrayList Validar()
         {
-            Amigo = amigo;
+            ArrayList erros = new ArrayList();
 
-            Revista = revista;
+            if (Revista == null)
+                erros.Add("A revista precisa ser preenchida");
 
-            Data = DateTime.Now;
+            if (Amigo == null)
+                erros.Add("O amigo precisa ser informado");
 
-            DataDevolucao = Data.AddDays(Revista.Caixa.TempoEmprestimo); // 3
+            return erros;
         }
 
         public void Concluir()
@@ -53,6 +69,15 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             decimal multa = valorMulta * diasDiferenca;
 
             return;
+        }
+
+        public override void AtualizarRegistro(EntidadeBase novoRegistro)
+        {
+            Emprestimo novasInformacoes = (Emprestimo)novoRegistro;
+
+            this.Revista = novasInformacoes.Revista;
+            this.Amigo = novasInformacoes.Amigo;
+            this.Data = novasInformacoes.Data;
         }
     }
 }

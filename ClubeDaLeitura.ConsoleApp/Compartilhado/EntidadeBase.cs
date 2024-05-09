@@ -8,6 +8,6 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 
         public abstract ArrayList Validar();
 
-        public abstract void AtualizarRegistro(EntidadeBase novoregistro);
+        public abstract void AtualizarRegistro(EntidadeBase novoRegistro);
     }
 }

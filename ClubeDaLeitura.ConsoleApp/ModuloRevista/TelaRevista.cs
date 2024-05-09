@@ -2,7 +2,7 @@
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using System.Collections;
 
-namespace ClubeDaLeitura.ConsoleApp.ModuloMedicamento
+namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 {
     internal class TelaRevista : TelaBase
     {
@@ -34,7 +34,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloMedicamento
 
                 Console.WriteLine(
                     "{0, -10} | {1, -20} | {2, -20} | {3, -20} | {4, -20}",
-                    revista.Id, revista.Titulo, revista.Numero, revista.DataAno, revista.Caixa
+                    revista.Id, revista.Titulo, revista.Numero, revista.DataAno, revista.Caixa.Etiqueta
                 );
             }
 
@@ -50,34 +50,28 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloMedicamento
             Console.Write("Digite o número da revista: ");
             string numero = Console.ReadLine();
 
-            Console.Write("Digite o lote: ");
-            string lote = Console.ReadLine();
+            Console.Write("Digite o ano da revista: ");
+            DateTime dataAno = Convert.ToDateTime(Console.ReadLine());
 
-            Console.Write("Digite a data de validade: ");
-            DateTime dataValidade = Convert.ToDateTime(Console.ReadLine());
+            telaCaixa.VisualizarRegistros(false);
 
-            Console.Write("Digite a quantidade disponivel do medicamento: ");
-            int quantidade = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Digite o ID da caixa da revista: ");
+            int idCaixa = Convert.ToInt32(Console.ReadLine());
 
-            telaFornecedor.VisualizarRegistros(false);
+            Caixa caixa = (Caixa)repositorioCaixa.SelecionarPorId(idCaixa);
 
-            Console.Write("Digite o ID do fornecedor do medicamento: ");
-            int idFornecedor = Convert.ToInt32(Console.ReadLine());
-
-            Fornecedor fornecedor = (Fornecedor)repositorioFornecedor.SelecionarPorId(idFornecedor);
-
-            return new Medicamento(nome, descricao, lote, dataValidade, fornecedor, quantidade);
+            return new Revista(titulo, numero, dataAno, caixa);
         }
 
         public void CadastrarEntidadeTeste()
         {
-            Fornecedor fornecedor = (Fornecedor)repositorioFornecedor.SelecionarTodos()[0];
+            Caixa caixa = (Caixa)repositorioCaixa.SelecionarTodos()[0];
 
-            DateTime dataValidade = new DateTime(2025, 06, 20);
+            DateTime dataAno = new DateTime(2025, 06, 20);
 
-            Medicamento medicamento = new Medicamento("Paracetamol", "10mg", "000012X", dataValidade, fornecedor, 10);
+            Revista revista = new Revista("Revista Teste", "2", dataAno, caixa);
 
-            repositorio.Cadastrar(medicamento);
+            repositorio.Cadastrar(revista);
         }
     }
 }

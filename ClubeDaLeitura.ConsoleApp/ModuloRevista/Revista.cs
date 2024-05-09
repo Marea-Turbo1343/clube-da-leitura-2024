@@ -8,19 +8,19 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
     {
         public string Titulo { get; set; }
         public string Numero { get; set; }
-        public DateTime DataAno { get; set; }
+        public int Ano { get; set; }
         public Caixa Caixa { get; set; }
 
         public Revista(
             string titulo,
             string numero,
-            DateTime dataAno,
+            int ano,
             Caixa caixa
         )
         {
             Titulo = titulo;
             Numero = numero;
-            DataAno = dataAno;
+            Ano = ano;
             Caixa = caixa;
         }
 

@@ -5,6 +5,57 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
     internal class TelaAmigo : TelaBase
     {
+        private RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
+
+        public override char ApresentarMenu()
+        {
+            Console.Clear();
+
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine($"        Gestão de {tipoEntidade}s        ");
+            Console.WriteLine("----------------------------------------");
+
+            Console.WriteLine();
+
+            Console.WriteLine($"1 - Cadastrar {tipoEntidade}");
+            Console.WriteLine($"2 - Multas de {tipoEntidade}s");
+            Console.WriteLine($"3 - Editar {tipoEntidade}");
+            Console.WriteLine($"4 - Excluir {tipoEntidade}s");
+            Console.WriteLine($"5 - Visualizar {tipoEntidade}s");
+
+            Console.WriteLine("S - Voltar");
+
+            Console.WriteLine();
+
+            Console.Write("Escolha uma das opções: ");
+            char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
+
+            return operacaoEscolhida;
+        }
+
+        public char ApresentarMenuMulta()
+        {
+            Console.Clear();
+
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine($"        Multa de {tipoEntidade}s        ");
+            Console.WriteLine("----------------------------------------");
+
+            Console.WriteLine();
+
+            Console.WriteLine($"1 - Visualizar amigos com multas");
+            Console.WriteLine($"2 - Quitar multas");
+
+            Console.WriteLine("S - Voltar");
+
+            Console.WriteLine();
+
+            Console.Write("Escolha uma das opções: ");
+            char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
+
+            return operacaoEscolhida;
+        }
+
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             if (exibirTitulo)
@@ -59,7 +110,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 
         public void CadastrarEntidadeTeste()
         {
-            Amigo amigo = new Amigo("Bobby Tables", "Pedro", "49 9999-9521", "Rua Z5");
+            Amigo amigo = new Amigo("Bobby Tables", "Pedro Silva", "49 9999-9521", "Rua Z5");
 
             repositorio.Cadastrar(amigo);
         }

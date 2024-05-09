@@ -17,17 +17,21 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -10} | {2, -10} | {3, -15} | {4, -15}",
-                "Id", "Etiqueta", "Cor", "DiasEmprestimo", "Revistas"
+                "{0, -10} | {1, -15} | {2, -10} | {3, -10} | {4, -15}",
+                "Id", "Etiqueta", "Cor", "Tipo", "Revistas"
             );
 
             ArrayList caixasCadastrados = repositorio.SelecionarTodos();
 
             foreach (Caixa caixa in caixasCadastrados)
             {
+                if (caixa == null)
+                    continue;
+
+
                 Console.WriteLine(
-                    "{0, -10} | {1, -10} | {2, -10} | {3, -15} | {4, -15}",
-                    caixa.Id, caixa.Etiqueta, caixa.Cor, caixa.DiasEmprestimo, caixa.Revistas
+                "{0, -10} | {1, -15} | {2, -10} | {3, -10} | {4, -15}",
+                "Id", "Etiqueta", "Cor", "Tipo", "Revistas"
                 );
             }
 
@@ -43,18 +47,15 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Console.Write("Digite a cor: ");
             string cor = Console.ReadLine();
 
-            Console.Write("Revista: 1 - 'Padrão' ou 2 - 'Novidade'? ");
-            string diasEmprestimo = Console.ReadLine();
+            Console.Write("Tipo da caixa (1 - 'Padrão' / 2 - 'Novidade'): ");
+            int tipo = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Digite o nome da Revista: ");
-            string revista = Console.ReadLine();
-
-            return new Caixa(etiqueta, cor, diasEmprestimo, revista);
+            return new Caixa(etiqueta, cor, tipo);
         }
 
         public void CadastrarEntidadeTeste()
         {
-            Caixa caixa = new Caixa("ABC123", "Verde", "1", "Revista TCHOLA");
+            Caixa caixa = new Caixa("Romance", "Vermelho", 2);
 
             repositorio.Cadastrar(caixa);
         }

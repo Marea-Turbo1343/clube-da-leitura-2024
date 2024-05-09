@@ -31,16 +31,16 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             if (string.IsNullOrEmpty(Titulo.Trim()))
                 erros.Add("O campo \"titulo\" é obrigatório");
 
-            if (string.IsNullOrEmpty(Numero.Trim()))
-                erros.Add("O campo \"numero\" é obrigatório");
+            if (string.IsNullOrEmpty(Numero.Trim()) || !int.TryParse(Numero, out _))
+                erros.Add("O campo \"numero\" é obrigatório e deve ser um número válido");
 
             if (Caixa == null)
                 erros.Add("O campo \"caixa\" é obrigatório");
 
             DateTime hoje = DateTime.Now.Date;
 
-            if (DataAno < hoje)
-                erros.Add("O campo \"data do ano\" não pode ser menor que a data atual");
+            if (DataAno > hoje)
+                erros.Add("O campo \"data do ano\" não pode ser maior que a data atual");
 
             return erros;
         }

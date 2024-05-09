@@ -1,48 +1,40 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
-using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
+using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using System.Collections;
-using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
 
-namespace ControleMedicamentos.ConsoleApp.ModuloRequisicao.Saida
+namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 {
     internal class TelaEmprestimo : TelaBase
     {
-        public TelaAmigo telaAmigo = null;
-        public TelaRevista telaRevista = null;
+        private RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
+        private RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
+        private RepositorioRevista repositorioRevista = new RepositorioRevista();
 
-        public RepositorioAmigo repositorioAmigo = null;
-        public RepositorioRevista repositorioRevista = null;
-
-        public override void Registrar()
+        public override char ApresentarMenu()
         {
-            ApresentarCabecalho();
+            Console.Clear();
 
-            Console.WriteLine($"Cadastrando {tipoEntidade}...");
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine($"        Gestão de {tipoEntidade}s        ");
+            Console.WriteLine("----------------------------------------");
 
             Console.WriteLine();
 
-            Emprestimo entidade = (Emprestimo)ObterRegistro();
+            Console.WriteLine($"1 - Cadastrar {tipoEntidade}");
+            Console.WriteLine($"2 - Editar {tipoEntidade}");
+            Console.WriteLine($"3 - Visualizar {tipoEntidade}s");
+            Console.WriteLine($"4 - Excluir {tipoEntidade}s");
 
-            ArrayList erros = entidade.Validar();
+            Console.WriteLine("S - Voltar");
 
-            if (erros.Count > 0)
-            {
-                ApresentarErros(erros);
-                return;
-            }
+            Console.WriteLine();
 
-            bool conseguiuRetirar = entidade.Concluir();
+            Console.Write("Escolha uma das opções: ");
+            char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
 
-            if (!conseguiuRetirar)
-            {
-                ExibirMensagem("Existe multa em aberto", ConsoleColor.DarkYellow);
-                return;
-            }
-
-            repositorio.Cadastrar(entidade);
-
-            ExibirMensagem($"O {tipoEntidade} foi cadastrado com sucesso!", ConsoleColor.Green);
+            return operacaoEscolhida;
         }
 
         public override void VisualizarRegistros(bool exibirTitulo)
@@ -51,30 +43,23 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicao.Saida
             {
                 ApresentarCabecalho();
 
-                Console.WriteLine("Visualizando Requisições de Saída...");
+                Console.WriteLine($"Visualizando {tipoEntidade}s...");
             }
 
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -15} | {2, -15} | {3, -20} | {4, -5}",
-                "Id", "Medicamento", "Paciente", "Data de Requisição", "Quantidade"
+                "{0, -10} | {1, -10} | {2, -10} | {3, -15} | {4, -15}",
+                "Id", "Amigo", "Revista", "DataEmprestimo", "DataDevolucao"
             );
 
-            ArrayList requisicoesCadastradas = repositorio.SelecionarTodos();
+            ArrayList emprestimosCadastrados = repositorioEmprestimo.SelecionarTodos();
 
-            foreach (RequisicaoSaida requisicao in requisicoesCadastradas)
+            foreach (Emprestimo emprestimo in emprestimosCadastrados)
             {
-                if (requisicao == null)
-                    continue;
-
                 Console.WriteLine(
-                    "{0, -10} | {1, -15} | {2, -15} | {3, -20} | {4, -5}",
-                    requisicao.Id,
-                    requisicao.Medicamento.Nome,
-                    requisicao.Paciente.Nome,
-                    requisicao.DataRequisicao.ToShortDateString(),
-                    requisicao.QuantidadeRetirada
+                    "{0, -10} | {1, -10} | {2, -10} | {3, -15} | {4, -15}",
+                    emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Revista.Titulo, emprestimo.DataEmprestimo, emprestimo.DataDevolucao
                 );
             }
 
@@ -84,26 +69,29 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicao.Saida
 
         protected override EntidadeBase ObterRegistro()
         {
-            telaMedicamento.VisualizarRegistros(false);
+            Console.Write("Digite o nome do amigo: ");
+            string nomeAmigo = Console.ReadLine();
 
-            Console.Write("Digite o ID do medicamento requisitado: ");
-            int idMedicamento = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Digite o título da revista: ");
+            string tituloRevista = Console.ReadLine();
 
-            Medicamento medicamentoSelecionado = (Medicamento)repositorioMedicamento.SelecionarPorId(idMedicamento);
+            Amigo amigoSelecionado = (Amigo)repositorioAmigo.SelecionarPorNome(nomeAmigo);
+            Revista revistaSelecionada = (Revista)repositorioRevista.SelecionarPorTitulo(tituloRevista);
 
-            telaPaciente.VisualizarRegistros(false);
+            return new Emprestimo(amigoSelecionado, revistaSelecionada);
+        }
 
-            Console.Write("Digite o ID do paciente requisitante: ");
-            int idPaciente = Convert.ToInt32(Console.ReadLine());
+        public void CadastrarEntidadeTeste()
+        {
+            Amigo amigo = new Amigo("Bobby Tables", "Pedro", "49 9999-9521", "Rua Z5");
+            Revista revista = new Revista("Revista TCHOLA", 1, 2024, new Caixa("ABC123", "Verde", 1, "Revista TCHOLA"));
 
-            Paciente pacienteSelecionado = (Paciente)repositorioPaciente.SelecionarPorId(idPaciente);
+            repositorioAmigo.Cadastrar(amigo);
+            repositorioRevista.Cadastrar(revista);
 
-            Console.Write("Digite a quantidade do medicamente que deseja retirar: ");
-            int quantidade = Convert.ToInt32(Console.ReadLine());
+            Emprestimo emprestimo = new Emprestimo(amigo, revista);
 
-            RequisicaoSaida novaRequisicao = new RequisicaoSaida(medicamentoSelecionado, pacienteSelecionado, quantidade);
-
-            return novaRequisicao;
+            repositorioEmprestimo.Cadastrar(emprestimo);
         }
     }
 }

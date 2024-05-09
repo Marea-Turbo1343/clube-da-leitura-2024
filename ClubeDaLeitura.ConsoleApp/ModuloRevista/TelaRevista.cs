@@ -47,11 +47,29 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             Console.Write("Digite o titulo da revista: ");
             string titulo = Console.ReadLine();
 
-            Console.Write("Digite o número da revista: ");
-            string numero = Console.ReadLine();
+            string numero;
+            while (true)
+            {
+                Console.Write("Digite o número da revista: ");
+                numero = Console.ReadLine();
 
-            Console.Write("Digite o ano da revista: ");
-            DateTime dataAno = Convert.ToDateTime(Console.ReadLine());
+                if (int.TryParse(numero, out _))
+                    break;
+
+                Console.WriteLine("Número inválido. Por favor, insira um número válido.");
+            }
+
+            DateTime dataAno;
+            while (true)
+            {
+                Console.Write("Digite o ano da revista: ");
+                string dataAnoStr = Console.ReadLine();
+
+                if (DateTime.TryParse(dataAnoStr, out dataAno) && dataAno <= DateTime.Now)
+                    break;
+
+                Console.WriteLine("Data inválida. Por favor, insira uma data válida que não esteja no futuro.");
+            }
 
             telaCaixa.VisualizarRegistros(false);
 
@@ -69,7 +87,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
             DateTime dataAno = new DateTime(2025, 06, 20);
 
-            Revista revista = new Revista("Revista Teste", "2", dataAno, caixa);
+            // Agora precisamos passar o tipo da caixa como um número
+            Revista revista = new Revista("Revista Teste", "2", dataAno, caixa.Tipo, caixa);
 
             repositorio.Cadastrar(revista);
         }

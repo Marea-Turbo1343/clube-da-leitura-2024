@@ -9,6 +9,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
         public string NomeResponsavel { get; set; }
         public string Telefone { get; set; }
         public string Endereco { get; set; }
+        public double Multa { get; set; }
 
         public Amigo(string nome, string nomeResponsavel, string telefone, string endereco)
         {

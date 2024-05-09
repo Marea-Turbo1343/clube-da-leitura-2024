@@ -1,8 +1,7 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
-using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using System.Collections;
 
-namespace ClubeDaLeitura.ConsoleApp.ModuloFornecedor
+namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
     internal class TelaCaixa : TelaBase
     {

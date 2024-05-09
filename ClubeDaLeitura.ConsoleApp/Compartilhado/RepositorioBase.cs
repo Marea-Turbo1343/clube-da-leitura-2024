@@ -1,4 +1,4 @@
-﻿﻿using System.Collections;
+﻿using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 {
@@ -86,5 +86,4 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
             return false;
         }
     }
-
 }

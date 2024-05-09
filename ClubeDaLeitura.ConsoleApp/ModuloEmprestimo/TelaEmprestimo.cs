@@ -11,31 +11,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         private RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
         private RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
         private RepositorioRevista repositorioRevista = new RepositorioRevista();
-
-        public override char ApresentarMenu()
-        {
-            Console.Clear();
-
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine($"        Gestão de {tipoEntidade}s        ");
-            Console.WriteLine("----------------------------------------");
-
-            Console.WriteLine();
-
-            Console.WriteLine($"1 - Cadastrar {tipoEntidade}");
-            Console.WriteLine($"2 - Editar {tipoEntidade}");
-            Console.WriteLine($"3 - Visualizar {tipoEntidade}s");
-            Console.WriteLine($"4 - Excluir {tipoEntidade}s");
-
-            Console.WriteLine("S - Voltar");
-
-            Console.WriteLine();
-
-            Console.Write("Escolha uma das opções: ");
-            char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
-
-            return operacaoEscolhida;
-        }
+        private RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
 
         public override void VisualizarRegistros(bool exibirTitulo)
         {
@@ -75,8 +51,11 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Console.Write("Digite o título da revista: ");
             string tituloRevista = Console.ReadLine();
 
-            Amigo amigoSelecionado = (Amigo)repositorioAmigo.SelecionarPorNome(nomeAmigo);
-            Revista revistaSelecionada = (Revista)repositorioRevista.SelecionarPorTitulo(tituloRevista);
+            Console.Write("Digite o ano da revista: ");
+            int anoRevista = Convert.ToInt32(Console.ReadLine()); // Alterado de DateTime para int
+
+            Amigo amigoSelecionado = repositorioAmigo.SelecionarPorNome(nomeAmigo);
+            Revista revistaSelecionada = repositorioRevista.SelecionarPorTitulo(tituloRevista);
 
             return new Emprestimo(amigoSelecionado, revistaSelecionada);
         }
@@ -84,9 +63,11 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         public void CadastrarEntidadeTeste()
         {
             Amigo amigo = new Amigo("Bobby Tables", "Pedro", "49 9999-9521", "Rua Z5");
-            Revista revista = new Revista("Revista TCHOLA", 1, 2024, new Caixa("ABC123", "Verde", 1, "Revista TCHOLA"));
+            Caixa caixa = new Caixa("ABC123", "Verde", 1);
+            Revista revista = new Revista("Revista TCHOLA", "1", 2024, caixa);
 
             repositorioAmigo.Cadastrar(amigo);
+            repositorioCaixa.Cadastrar(caixa);
             repositorioRevista.Cadastrar(revista);
 
             Emprestimo emprestimo = new Emprestimo(amigo, revista);

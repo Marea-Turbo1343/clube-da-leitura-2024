@@ -5,6 +5,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
     internal class TelaCaixa : TelaBase
     {
+        private RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             if (exibirTitulo)
@@ -17,8 +18,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -15} | {2, -10} | {3, -10} | {4, -15}",
-                "Id", "Etiqueta", "Cor", "Tipo", "Revistas"
+                "{0, -10} | {1, -15} | {2, -10} | {3, -10}",
+                "Id", "Etiqueta", "Cor", "Tipo"
             );
 
             ArrayList caixasCadastrados = repositorio.SelecionarTodos();
@@ -28,10 +29,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
                 if (caixa == null)
                     continue;
 
-
                 Console.WriteLine(
-                "{0, -10} | {1, -15} | {2, -10} | {3, -10} | {4, -15}",
-                "Id", "Etiqueta", "Cor", "Tipo", "Revistas"
+                "{0, -10} | {1, -15} | {2, -10} | {3, -10}",
+                "Id", "Etiqueta", "Cor", "Tipo"
                 );
             }
 

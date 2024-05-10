@@ -43,6 +43,8 @@ namespace ClubeDaLeitura.ConsoleApp
 
             while (true)
             {
+                char operacaoEscolhida;
+
                 char opcaoPrincipalEscolhida = TelaPrincipal.ApresentarMenuPrincipal();
 
                 if (opcaoPrincipalEscolhida == 'S' || opcaoPrincipalEscolhida == 's')
@@ -51,7 +53,46 @@ namespace ClubeDaLeitura.ConsoleApp
                 TelaBase tela = null;
 
                 if (opcaoPrincipalEscolhida == '1')
+                {
                     tela = telaAmigo;
+                    operacaoEscolhida = tela.ApresentarMenu();
+
+                    if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
+                        continue;
+
+                    if (operacaoEscolhida == '2')
+                    {
+                        char operacaoMultaEscolhida = telaAmigo.ApresentarMenuMulta();
+
+                        switch (operacaoMultaEscolhida)
+                        {
+                            case '1':
+                                telaAmigo.VisualizarAmigosComMultas();
+                                break;
+                            case '2':
+                                telaAmigo.QuitarMultas();
+                                break;
+                            case 'S':
+                            case 's':
+                                break;
+                            default:
+                                Console.WriteLine("Opção inválida. Por favor, escolha uma opção válida.");
+                                break;
+                        }
+                    }
+
+                    else if (operacaoEscolhida == '1')
+                        tela.Registrar();
+
+                    else if (operacaoEscolhida == '3')
+                        tela.Editar();
+
+                    else if (operacaoEscolhida == '4')
+                        tela.Excluir();
+
+                    else if (operacaoEscolhida == '5')
+                        tela.VisualizarRegistros(true);
+                }
 
                 else if (opcaoPrincipalEscolhida == '2')
                     tela = telaCaixa;
@@ -60,27 +101,45 @@ namespace ClubeDaLeitura.ConsoleApp
                     tela = telaRevista;
 
                 else if (opcaoPrincipalEscolhida == '4')
+                {
                     tela = telaEmprestimo;
+                    operacaoEscolhida = tela.ApresentarMenu();
+
+                    if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
+                        continue;
+
+                    if (operacaoEscolhida == '1')
+                        tela.Registrar();
+                    else if (operacaoEscolhida == '2')
+                        tela.Editar();
+                    else if (operacaoEscolhida == '3')
+                        tela.Excluir();
+                    else if (operacaoEscolhida == '4')
+                        tela.VisualizarRegistros(true);
+                    else if (operacaoEscolhida == '5')
+                    {
+                        telaEmprestimo.ConcluirEmprestimo();
+                    }
+                }
 
                 else if (opcaoPrincipalEscolhida == '5')
                     tela = telaReserva;
+                    operacaoEscolhida = tela.ApresentarMenu();
 
-                char operacaoEscolhida = tela.ApresentarMenu();
+                    if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
+                        continue;
 
-                if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
-                    continue;
+                    if (operacaoEscolhida == '1')
+                        tela.Registrar();
 
-                if (operacaoEscolhida == '1')
-                    tela.Registrar();
+                    else if (operacaoEscolhida == '2')
+                        tela.Editar();
 
-                else if (operacaoEscolhida == '2')
-                    tela.Editar();
+                    else if (operacaoEscolhida == '3')
+                        tela.Excluir();
 
-                else if (operacaoEscolhida == '3')
-                    tela.Excluir();
-
-                else if (operacaoEscolhida == '4')
-                    tela.VisualizarRegistros(true);
+                    else if (operacaoEscolhida == '4')
+                        tela.VisualizarRegistros(true);
             }
         }
     }

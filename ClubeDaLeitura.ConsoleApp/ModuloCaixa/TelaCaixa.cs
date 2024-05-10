@@ -5,7 +5,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
     internal class TelaCaixa : TelaBase
     {
-        private RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             if (exibirTitulo)

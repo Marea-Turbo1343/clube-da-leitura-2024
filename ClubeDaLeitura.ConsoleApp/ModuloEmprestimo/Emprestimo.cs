@@ -62,8 +62,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
         private void CalcularMulta(int diasAtraso)
         {
-            decimal valorMultaPorDia = Revista.Caixa.ValorMulta;
+            int valorMultaPorDia = (int)Revista.Caixa.ValorMulta;
             Multa = valorMultaPorDia * diasAtraso;
+            Amigo.Multa += Multa;
         }
 
         public override void AtualizarRegistro(EntidadeBase novoRegistro)

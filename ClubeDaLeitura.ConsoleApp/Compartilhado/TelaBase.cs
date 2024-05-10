@@ -32,7 +32,7 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
             return operacaoEscolhida;
         }
 
-        protected void InserirRegistro(EntidadeBase entidade)
+        protected void InserirRegistro(EntidadeBase entidade, RepositorioBase repositorio)
         {
             if (entidade == null)
             {
@@ -63,7 +63,7 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 
             EntidadeBase entidade = ObterRegistro();
 
-            InserirRegistro(entidade);
+            InserirRegistro(entidade, repositorio);
         }
 
         public void Editar()

@@ -115,22 +115,58 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                 Console.WriteLine($"ID: {amigo.Id}, Nome: {amigo.Nome}");
             }
 
-            Console.Write("Digite o ID do amigo: ");
+            Console.Write("\nDigite o ID do amigo: ");
             int idAmigo = Convert.ToInt32(Console.ReadLine());
 
             Amigo amigoSelecionado = (Amigo)repositorioAmigo.SelecionarPorId(idAmigo);
+
+            ArrayList emprestimos = repositorioEmprestimo.SelecionarTodos();
+            foreach (Emprestimo emprestimo in emprestimos)
+            {
+                if (emprestimo.Amigo.Id == amigoSelecionado.Id && !emprestimo.Concluido)
+                {
+                    Console.WriteLine("\nO amigo já possui um empréstimo ativo e não pode realizar outro até finalizar.");
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    return null;
+                }
+            }
+
+            if (amigoSelecionado.Multa > 0)
+            {
+                Console.WriteLine("\nO amigo tem uma multa em aberto. Deseja quitar a multa?");
+                Console.WriteLine("1 - Sim");
+                Console.WriteLine("2 - Não");
+                Console.Write("\nEscolha uma opção: ");
+                int opcao = Convert.ToInt32(Console.ReadLine());
+
+                if (opcao == 1)
+                {
+                    amigoSelecionado.Multa = 0;
+                    Console.WriteLine("\nA multa foi quitada. Continuando com o empréstimo...");
+                }
+                else
+                {
+                    Console.WriteLine("\nO amigo precisa pagar a multa para realizar um novo empréstimo.");
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    return null;
+                }
+            }
 
             ArrayList reservas = repositorioReserva.SelecionarTodos();
             foreach (Reserva reserva in reservas)
             {
                 if (reserva.Amigo.Id == amigoSelecionado.Id && !reserva.Expirada)
                 {
-                    Console.WriteLine("O amigo já possui uma reserva válida e não pode realizar um novo empréstimo.");
+                    Console.WriteLine("\nO amigo já possui uma reserva válida e não pode realizar um novo empréstimo.");
+                    Console.ReadLine();
+                    Console.WriteLine();
                     return null;
                 }
             }
 
-            Console.WriteLine("Revistas disponíveis:");
+            Console.WriteLine("\nRevistas disponíveis:");
             ArrayList revistas = repositorioRevista.SelecionarTodos();
             ArrayList revistasDisponiveis = new ArrayList();
             foreach (Revista revista in revistas)
@@ -145,19 +181,22 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
             if (revistasDisponiveis.Count == 0)
             {
-                Console.WriteLine("Não há revistas disponíveis para empréstimo.");
+                Console.WriteLine("\nNão há revistas disponíveis para empréstimo.");
+                Console.ReadLine();
+                Console.WriteLine();
                 return null;
             }
 
-            Console.Write("Digite o ID da revista: ");
+            Console.Write("\nDigite o ID da revista: ");
             int idRevista = Convert.ToInt32(Console.ReadLine());
 
             Revista revistaSelecionada = (Revista)repositorioRevista.SelecionarPorId(idRevista);
 
-            // Verificar se a revista selecionada está disponível
             if (!revistasDisponiveis.Contains(revistaSelecionada))
             {
-                Console.WriteLine("A revista selecionada não está disponível para empréstimo.");
+                Console.WriteLine("\nA revista selecionada não está disponível para empréstimo.");
+                Console.ReadLine();
+                Console.WriteLine();
                 return null;
             }
 
@@ -190,7 +229,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                 }
             }
 
-            InserirRegistro(emprestimo);
+            InserirRegistro(emprestimo, repositorioEmprestimo);
+
+            Console.ReadLine();
+            Console.WriteLine();
         }
 
         public void ConcluirEmprestimo()

@@ -11,13 +11,13 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
         public string Endereco { get; set; }
         public int Multa { get; set; }
 
-        public Amigo(string nome, string nomeResponsavel, string telefone, string endereco, int multa)
+        public Amigo(string nome, string nomeResponsavel, string telefone, string endereco)
         {
             Nome = nome;
             NomeResponsavel = nomeResponsavel;
             Telefone = telefone;
             Endereco = endereco;
-            Multa = multa;
+            Multa = 0;
         }
 
         public override ArrayList Validar()

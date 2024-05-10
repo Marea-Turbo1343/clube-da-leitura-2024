@@ -13,7 +13,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         public DateTime DataEmprestimo { get; set; }
         public DateTime DataDevolucao { get; set; }
         public bool Concluido { get; set; }
-        public decimal Multa { get; private set; }
+        public int Multa { get; private set; }
 
         public Emprestimo(Amigo amigo, Revista revista)
         {

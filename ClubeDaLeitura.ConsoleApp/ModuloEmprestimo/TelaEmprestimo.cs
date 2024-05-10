@@ -136,6 +136,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             {
                 Console.WriteLine("O empréstimo foi concluído com sucesso.");
             }
+            Console.ReadLine();
+            Console.WriteLine();
         }
 
         public void CadastrarEntidadeTeste()

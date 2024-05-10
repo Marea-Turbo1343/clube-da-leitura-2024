@@ -8,6 +8,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 {
     internal class Emprestimo : EntidadeBase
     {
+        private RepositorioAmigo repositorioAmigo;
+
         public Amigo Amigo { get; set; }
         public Revista Revista { get; set; }
         public DateTime DataEmprestimo { get; set; }
@@ -15,8 +17,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         public bool Concluido { get; set; }
         public int Multa { get; private set; }
 
-        public Emprestimo(Amigo amigo, Revista revista)
+        public Emprestimo(Amigo amigo, Revista revista, RepositorioAmigo repositorioAmigo)
         {
+            this.repositorioAmigo = repositorioAmigo;
             Amigo = amigo;
             Revista = revista;
             DataEmprestimo = DateTime.Now;
@@ -53,7 +56,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Reserva reserva = repositorioReserva.SelecionarPorRevista(Revista);
             if (reserva != null && !reserva.Expirada)
             {
-                Emprestimo novoEmprestimo = new Emprestimo(reserva.Amigo, reserva.Revista);
+                Emprestimo novoEmprestimo = new Emprestimo(reserva.Amigo, reserva.Revista, repositorioAmigo);
                 repositorioEmprestimo.Cadastrar(novoEmprestimo);
 
                 Console.WriteLine($"A revista {Revista.Titulo} foi automaticamente emprestada para {reserva.Amigo.Nome}.");
@@ -65,6 +68,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             int valorMultaPorDia = (int)Revista.Caixa.ValorMulta;
             Multa = valorMultaPorDia * diasAtraso;
             Amigo.Multa += Multa;
+
+            repositorioAmigo.Atualizar(Amigo);
         }
 
         public override void AtualizarRegistro(EntidadeBase novoRegistro)

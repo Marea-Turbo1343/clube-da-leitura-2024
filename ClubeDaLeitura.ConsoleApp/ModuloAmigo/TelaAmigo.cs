@@ -48,7 +48,16 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
                 Console.WriteLine();
 
                 Console.Write("Escolha uma das opções: ");
-                operacaoEscolhida = Convert.ToChar(Console.ReadLine());
+                char operacaoMultaEscolhida = Convert.ToChar(Console.ReadLine());
+
+                if (operacaoMultaEscolhida == '1')
+                {
+                    VisualizarAmigosComMultas();
+                }
+                else if (operacaoMultaEscolhida == '2')
+                {
+                    QuitarMultas();
+                }
             }
 
             return operacaoEscolhida;

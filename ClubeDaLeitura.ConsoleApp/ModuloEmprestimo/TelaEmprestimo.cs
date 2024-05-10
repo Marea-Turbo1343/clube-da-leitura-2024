@@ -107,13 +107,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
             Revista revistaSelecionada = (Revista)repositorioRevista.SelecionarPorId(idRevista);
 
-            Emprestimo novoEmprestimo = new Emprestimo(amigoSelecionado, revistaSelecionada);
-            novoEmprestimo.DataEmprestimo = DateTime.Now;
-            novoEmprestimo.DataDevolucao = DateTime.Now.AddDays(revistaSelecionada.Caixa.DiasEmprestimo);
-
-            return novoEmprestimo;
+            return new Emprestimo(amigoSelecionado, revistaSelecionada, repositorioAmigo);
         }
-
 
         public void ConcluirEmprestimo()
         {

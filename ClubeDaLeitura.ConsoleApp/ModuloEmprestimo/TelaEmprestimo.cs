@@ -9,10 +9,16 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 {
     internal class TelaEmprestimo : TelaBase
     {
-        private RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
-        private RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
-        private RepositorioRevista repositorioRevista = new RepositorioRevista();
-        private RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
+        private RepositorioEmprestimo repositorioEmprestimo;
+        public RepositorioAmigo repositorioAmigo;
+        public RepositorioRevista repositorioRevista;
+
+        public TelaEmprestimo(RepositorioEmprestimo repositorioEmprestimo, RepositorioAmigo repositorioAmigo, RepositorioRevista repositorioRevista)
+        {
+            this.repositorioEmprestimo = repositorioEmprestimo;
+            this.repositorioAmigo = repositorioAmigo;
+            this.repositorioRevista = repositorioRevista;
+        }
 
         public override char ApresentarMenu()
         {

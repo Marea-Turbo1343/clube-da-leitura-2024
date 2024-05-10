@@ -12,7 +12,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             Console.Clear();
 
             Console.WriteLine("----------------------------------------");
-            Console.WriteLine($"        Gestão de {tipoEntidade}s        ");
+            Console.WriteLine($"|        Gestão de {tipoEntidade}s        |");
             Console.WriteLine("----------------------------------------");
 
             Console.WriteLine();
@@ -110,36 +110,40 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 
         public void VisualizarAmigosComMultas()
         {
+            bool temAmigoComMulta = false;
             Console.WriteLine("\nAmigos com multas:");
 
-            // Percorre a lista de amigos
             foreach (Amigo amigo in repositorioAmigo.SelecionarTodos())
             {
-                // Verifica se o amigo tem multa
                 if (amigo.Multa > 0)
                 {
+                    temAmigoComMulta = true;
                     Console.WriteLine($"ID: {amigo.Id}, Nome: {amigo.Nome}, Multa: {amigo.Multa}");
                 }
             }
+
+            if (!temAmigoComMulta)
+            {
+                Console.WriteLine("Não existem amigos com multas");
+            }
+
+            Console.ReadLine();
+            Console.WriteLine();
         }
 
         public void QuitarMultas()
         {
             Console.WriteLine("\nQuitar multas de amigos:");
 
-            // Exibe a lista de amigos com multas
             VisualizarAmigosComMultas();
 
             Console.Write("Digite o ID do amigo que deseja quitar a multa: ");
             int idAmigo = Convert.ToInt32(Console.ReadLine());
 
-            // Encontra o amigo pelo ID
             Amigo amigo = (Amigo)repositorioAmigo.SelecionarPorId(idAmigo);
 
-            // Verifica se o amigo existe e tem multa
             if (amigo != null && amigo.Multa > 0)
             {
-                // Quita a multa do amigo
                 amigo.Multa = 0;
                 Console.WriteLine($"A multa do amigo {amigo.Nome} foi quitada.");
             }
@@ -147,6 +151,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             {
                 Console.WriteLine("Amigo não encontrado ou não possui multa.");
             }
+
+            Console.ReadLine();
+            Console.WriteLine();
         }
 
         public void CadastrarEntidadeTeste()

@@ -30,7 +30,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 
                 Console.WriteLine(
                 "{0, -10} | {1, -15} | {2, -10} | {3, -10}",
-                "Id", "Etiqueta", "Cor", "Tipo"
+                caixa.Id, caixa.Etiqueta, caixa.Cor, caixa.Tipo
                 );
             }
 

@@ -1,6 +1,5 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
-using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using System.Collections;
@@ -58,8 +57,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -10} | {2, -10} | {3, -15} | {4, -15}",
-                "Id", "Amigo", "Revista", "DataEmprestimo", "DataDevolucao"
+                "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -20}",
+                "Id", "Amigo", "Revista", "Data do Emprestimo", "Data de Devolucao"
             );
 
             ArrayList emprestimosCadastrados = repositorioEmprestimo.SelecionarTodos();
@@ -67,7 +66,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             foreach (Emprestimo emprestimo in emprestimosCadastrados)
             {
                 Console.WriteLine(
-                    "{0, -10} | {1, -10} | {2, -10} | {3, -15} | {4, -15}",
+                    "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -20}",
                     emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Revista.Titulo, emprestimo.DataEmprestimo, emprestimo.DataDevolucao
                 );
             }

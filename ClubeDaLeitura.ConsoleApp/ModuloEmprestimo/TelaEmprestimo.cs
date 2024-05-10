@@ -120,15 +120,33 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
             Amigo amigoSelecionado = (Amigo)repositorioAmigo.SelecionarPorId(idAmigo);
 
+            ArrayList reservas = repositorioReserva.SelecionarTodos();
+            foreach (Reserva reserva in reservas)
+            {
+                if (reserva.Amigo.Id == amigoSelecionado.Id && !reserva.Expirada)
+                {
+                    Console.WriteLine("O amigo já possui uma reserva válida e não pode realizar um novo empréstimo.");
+                    return null;
+                }
+            }
+
             Console.WriteLine("Revistas disponíveis:");
             ArrayList revistas = repositorioRevista.SelecionarTodos();
+            ArrayList revistasDisponiveis = new ArrayList();
             foreach (Revista revista in revistas)
             {
                 Emprestimo emprestimo = (Emprestimo)repositorioEmprestimo.SelecionarPorRevista(revista);
                 if (emprestimo == null || emprestimo.Concluido)
                 {
                     Console.WriteLine($"ID: {revista.Id}, Título: {revista.Titulo}");
+                    revistasDisponiveis.Add(revista);
                 }
+            }
+
+            if (revistasDisponiveis.Count == 0)
+            {
+                Console.WriteLine("Não há revistas disponíveis para empréstimo.");
+                return null;
             }
 
             Console.Write("Digite o ID da revista: ");
@@ -136,7 +154,43 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
             Revista revistaSelecionada = (Revista)repositorioRevista.SelecionarPorId(idRevista);
 
+            // Verificar se a revista selecionada está disponível
+            if (!revistasDisponiveis.Contains(revistaSelecionada))
+            {
+                Console.WriteLine("A revista selecionada não está disponível para empréstimo.");
+                return null;
+            }
+
             return new Emprestimo(amigoSelecionado, revistaSelecionada, repositorioAmigo);
+        }
+
+        public override void Registrar()
+        {
+            ApresentarCabecalho();
+
+            Console.WriteLine($"Cadastrando {tipoEntidade}...");
+
+            Console.WriteLine();
+
+            Emprestimo emprestimo = (Emprestimo)ObterRegistro();
+
+            if (emprestimo == null)
+            {
+                Console.WriteLine("O empréstimo não pode ser registrado.");
+                return;
+            }
+
+            ArrayList reservas = repositorioReserva.SelecionarTodos();
+            foreach (Reserva reserva in reservas)
+            {
+                if (reserva.Amigo.Id == emprestimo.Amigo.Id && !reserva.Expirada)
+                {
+                    Console.WriteLine("O amigo já possui uma reserva válida e não pode realizar um novo empréstimo.");
+                    return;
+                }
+            }
+
+            InserirRegistro(emprestimo);
         }
 
         public void ConcluirEmprestimo()

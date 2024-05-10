@@ -34,6 +34,12 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 
         protected void InserirRegistro(EntidadeBase entidade)
         {
+            if (entidade == null)
+            {
+                Console.WriteLine("A entidade é nula e não pode ser cadastrada.");
+                return;
+            }
+
             ArrayList erros = entidade.Validar();
 
             if (erros.Count > 0)

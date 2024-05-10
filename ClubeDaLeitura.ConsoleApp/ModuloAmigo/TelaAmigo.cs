@@ -7,6 +7,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
     {
         private RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
 
+
         public override char ApresentarMenu()
         {
             Console.Clear();

@@ -12,43 +12,33 @@ namespace ClubeDaLeitura.ConsoleApp
         static void Main(string[] args)
         {
             RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
-
             TelaAmigo telaAmigo = new TelaAmigo();
             telaAmigo.tipoEntidade = "Amigo";
             telaAmigo.repositorio = repositorioAmigo;
-
             telaAmigo.CadastrarEntidadeTeste();
 
             RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
-
             TelaCaixa telaCaixa = new TelaCaixa();
             telaCaixa.tipoEntidade = "Caixa";
             telaCaixa.repositorio = repositorioCaixa;
-
             telaCaixa.CadastrarEntidadeTeste();
 
             RepositorioRevista repositorioRevista = new RepositorioRevista();
-
             TelaRevista telaRevista = new TelaRevista();
             telaRevista.tipoEntidade = "Revista";
             telaRevista.repositorio = repositorioRevista;
-
+            telaRevista.repositorioCaixa = repositorioCaixa;
+            telaRevista.telaCaixa = telaCaixa;
             telaRevista.CadastrarEntidadeTeste();
 
             RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
-
-            TelaEmprestimo telaEmprestimo = new TelaEmprestimo();
+            TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
             telaEmprestimo.tipoEntidade = "Emprestimo";
-            telaEmprestimo.repositorio = repositorioEmprestimo;
-
             telaEmprestimo.CadastrarEntidadeTeste();
 
             RepositorioReserva repositorioReserva = new RepositorioReserva();
-
-            TelaReserva telaReserva = new TelaReserva();
+            TelaReserva telaReserva = new TelaReserva(repositorioReserva, repositorioAmigo, repositorioRevista, repositorioEmprestimo);
             telaReserva.tipoEntidade = "Reserva";
-            telaReserva.repositorio = repositorioReserva;
-
             telaReserva.CadastrarEntidadeTeste();
 
             while (true)

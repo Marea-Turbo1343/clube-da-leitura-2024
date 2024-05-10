@@ -9,11 +9,18 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 {
     internal class TelaReserva : TelaBase
     {
-        private RepositorioReserva repositorioReserva = new RepositorioReserva();
-        private RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
-        private RepositorioRevista repositorioRevista = new RepositorioRevista();
-        private RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
-        private RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
+        private RepositorioReserva repositorioReserva;
+        public RepositorioAmigo repositorioAmigo;
+        public RepositorioRevista repositorioRevista;
+        public RepositorioEmprestimo repositorioEmprestimo;
+
+        public TelaReserva(RepositorioReserva repositorioReserva, RepositorioAmigo repositorioAmigo, RepositorioRevista repositorioRevista, RepositorioEmprestimo repositorioEmprestimo)
+        {
+            this.repositorioReserva = repositorioReserva;
+            this.repositorioAmigo = repositorioAmigo;
+            this.repositorioRevista = repositorioRevista;
+            this.repositorioEmprestimo = repositorioEmprestimo;
+        }
 
         public override void VisualizarRegistros(bool exibirTitulo)
         {

@@ -1,6 +1,5 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
-using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using System.Collections;
@@ -34,7 +33,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -10} | {2, -10} | {3, -15} | {4, -15}",
+                "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -15}",
                 "Id", "Amigo", "Revista", "DataReserva", "Expirada"
             );
 
@@ -43,7 +42,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
             foreach (Reserva reserva in reservasCadastradas)
             {
                 Console.WriteLine(
-                    "{0, -10} | {1, -10} | {2, -10} | {3, -15} | {4, -15}",
+                    "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -15}",
                     reserva.Id, reserva.Amigo.Nome, reserva.Revista.Titulo, reserva.DataReserva, reserva.Expirada
                 );
             }

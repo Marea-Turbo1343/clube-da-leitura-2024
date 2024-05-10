@@ -26,7 +26,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Console.Clear();
 
             Console.WriteLine("----------------------------------------");
-            Console.WriteLine($"        Gestão de {tipoEntidade}s        ");
+            Console.WriteLine($"|        Gestão de {tipoEntidade}s        |");
             Console.WriteLine("----------------------------------------");
 
             Console.WriteLine();
@@ -43,6 +43,36 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
             Console.Write("Escolha uma das opções: ");
             char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
+
+            if (operacaoEscolhida == '4')
+            {
+                Console.Clear();
+
+                Console.WriteLine("----------------------------------------");
+                Console.WriteLine($"        Visualizar {tipoEntidade}s        ");
+                Console.WriteLine("----------------------------------------");
+
+                Console.WriteLine();
+
+                Console.WriteLine($"1 - Visualizar Emprestimos por Mês");
+                Console.WriteLine($"2 - Visualizar todos os empréstimos");
+
+                Console.WriteLine("S - Voltar");
+
+                Console.WriteLine();
+
+                Console.Write("Escolha uma das opções: ");
+                char operacaoVisualizarEscolhida = Convert.ToChar(Console.ReadLine());
+
+                if (operacaoVisualizarEscolhida == '1')
+                {
+                    VisualizarEmprestimosPorMes();
+                }
+                else if (operacaoVisualizarEscolhida == '2')
+                {
+                    VisualizarTodosEmprestimos();
+                }
+            }
 
             return operacaoEscolhida;
         }
@@ -155,6 +185,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                     Console.WriteLine($"Amigo: {emprestimo.Amigo.Nome}, Revista: {emprestimo.Revista.Titulo}, Data do Empréstimo: {emprestimo.DataEmprestimo}, Concluído: {emprestimo.Concluido}");
                 }
             }
+            Console.ReadLine();
+            Console.WriteLine();
         }
 
         public void VisualizarTodosEmprestimos()
@@ -163,6 +195,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             {
                 Console.WriteLine($"Amigo: {emprestimo.Amigo.Nome}, Revista: {emprestimo.Revista.Titulo}, Data do Empréstimo: {emprestimo.DataEmprestimo}, Concluído: {emprestimo.Concluido}");
             }
+            Console.ReadLine();
+            Console.WriteLine();
         }
 
         public void CadastrarEntidadeTeste()

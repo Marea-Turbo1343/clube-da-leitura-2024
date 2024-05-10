@@ -53,10 +53,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
                 if (operacaoMultaEscolhida == '1')
                 {
                     VisualizarAmigosComMultas();
+                    return 'S';
                 }
                 else if (operacaoMultaEscolhida == '2')
                 {
                     QuitarMultas();
+                    return 'S';
                 }
             }
 

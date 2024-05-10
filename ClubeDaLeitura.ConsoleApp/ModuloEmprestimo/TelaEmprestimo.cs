@@ -70,7 +70,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                 }
                 else if (operacaoVisualizarEscolhida == '2')
                 {
-                    VisualizarTodosEmprestimos();
+                    VisualizarRegistros(true);
                 }
             }
 
@@ -86,20 +86,19 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                 Console.WriteLine($"Visualizando {tipoEntidade}s...");
             }
 
-            Console.WriteLine();
-
             Console.WriteLine(
-                "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -20}",
-                "Id", "Amigo", "Revista", "Data do Emprestimo", "Data de Devolucao"
+                "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -20} | {5, -10}",
+                "Id", "Amigo", "Revista", "Data do Emprestimo", "Data de Devolucao", "Concluído"
             );
 
             ArrayList emprestimosCadastrados = repositorioEmprestimo.SelecionarTodos();
 
             foreach (Emprestimo emprestimo in emprestimosCadastrados)
             {
+                string concluido = emprestimo.Concluido ? "Sim" : "Não";
                 Console.WriteLine(
-                    "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -20}",
-                    emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Revista.Titulo, emprestimo.DataEmprestimo, emprestimo.DataDevolucao
+                    "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -20} | {5, -10}",
+                    emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Revista.Titulo, emprestimo.DataEmprestimo, emprestimo.DataDevolucao, concluido
                 );
             }
 
@@ -142,13 +141,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
         public void ConcluirEmprestimo()
         {
-            RepositorioReserva repositorioReserva = new RepositorioReserva();
-            RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
-
             Console.Write("Digite o ID do empréstimo que deseja concluir: ");
             int idEmprestimo = Convert.ToInt32(Console.ReadLine());
 
-            Emprestimo emprestimo = (Emprestimo)repositorioEmprestimo.SelecionarPorId(idEmprestimo);
+            Emprestimo emprestimo = (Emprestimo)this.repositorioEmprestimo.SelecionarPorId(idEmprestimo);
 
             if (emprestimo == null)
             {
@@ -156,7 +152,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                 return;
             }
 
-            emprestimo.Concluir(repositorioReserva, repositorioEmprestimo);
+            emprestimo.Concluir(this.repositorioReserva, this.repositorioEmprestimo);
 
             if (emprestimo.Multa > 0)
             {
@@ -178,22 +174,21 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Console.Write("Informe o ano: ");
             int ano = Convert.ToInt32(Console.ReadLine());
 
+            Console.WriteLine(
+                "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -20} | {5, -10}",
+                "Id", "Amigo", "Revista", "Data do Emprestimo", "Data de Devolucao", "Concluído"
+            );
+
             foreach (Emprestimo emprestimo in repositorioEmprestimo.SelecionarTodos())
             {
                 if (emprestimo.DataEmprestimo.Month == mes && emprestimo.DataEmprestimo.Year == ano)
                 {
-                    Console.WriteLine($"Amigo: {emprestimo.Amigo.Nome}, Revista: {emprestimo.Revista.Titulo}, Data do Empréstimo: {emprestimo.DataEmprestimo}, Concluído: {emprestimo.Concluido}");
+                    string concluido = emprestimo.Concluido ? "Sim" : "Não";
+                    Console.WriteLine(
+                        "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -20} | {5, -10}",
+                        emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Revista.Titulo, emprestimo.DataEmprestimo, emprestimo.DataDevolucao, concluido
+                    );
                 }
-            }
-            Console.ReadLine();
-            Console.WriteLine();
-        }
-
-        public void VisualizarTodosEmprestimos()
-        {
-            foreach (Emprestimo emprestimo in repositorioEmprestimo.SelecionarTodos())
-            {
-                Console.WriteLine($"Amigo: {emprestimo.Amigo.Nome}, Revista: {emprestimo.Revista.Titulo}, Data do Empréstimo: {emprestimo.DataEmprestimo}, Concluído: {emprestimo.Concluido}");
             }
             Console.ReadLine();
             Console.WriteLine();

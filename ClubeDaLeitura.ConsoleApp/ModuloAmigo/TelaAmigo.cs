@@ -110,9 +110,11 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 
         public void CadastrarEntidadeTeste()
         {
-            Amigo amigo = new Amigo("Bobby Tables", "Pedro Silva", "49 9999-9521", "Rua Z5");
+            Amigo amigo1 = new Amigo("Joao Silva", "Pedro Silva", "49 99999-9521", "Rua Z5");
+            repositorio.Cadastrar(amigo1);
 
-            repositorio.Cadastrar(amigo);
+            Amigo amigo2 = new Amigo("Paulo Souza", "Luciano Souza", "49 99876-4321", "Rua G5");
+            repositorio.Cadastrar(amigo2);
         }
     }
 }

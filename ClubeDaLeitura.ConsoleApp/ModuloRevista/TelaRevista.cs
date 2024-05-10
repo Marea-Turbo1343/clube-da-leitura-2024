@@ -22,7 +22,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
             Console.WriteLine(
                 "{0, -10} | {1, -20} | {2, -20} | {3, -20} | {4, -20}",
-                "Id", "Titulo", "Numero", "DataAno", "Caixa"
+                "Id", "Titulo", "Numero", "Ano", "Caixa" // Alterado de "DataAno" para "Ano"
             );
 
             ArrayList revistasCadastradas = repositorio.SelecionarTodos();
@@ -34,7 +34,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
                 Console.WriteLine(
                     "{0, -10} | {1, -20} | {2, -20} | {3, -20} | {4, -20}",
-                    revista.Id, revista.Titulo, revista.Numero, revista.DataAno, revista.Caixa.Etiqueta
+                    revista.Id, revista.Titulo, revista.Numero, revista.Ano, revista.Caixa.Etiqueta // Alterado de revista.DataAno para revista.Ano
                 );
             }
 
@@ -59,16 +59,16 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
                 Console.WriteLine("Número inválido. Por favor, insira um número válido.");
             }
 
-            DateTime dataAno;
+            int ano;
             while (true)
             {
                 Console.Write("Digite o ano da revista: ");
-                string dataAnoStr = Console.ReadLine();
+                string anoStr = Console.ReadLine();
 
-                if (DateTime.TryParse(dataAnoStr, out dataAno) && dataAno <= DateTime.Now)
+                if (int.TryParse(anoStr, out ano) && ano <= DateTime.Now.Year)
                     break;
 
-                Console.WriteLine("Data inválida. Por favor, insira uma data válida que não esteja no futuro.");
+                Console.WriteLine("Ano inválido. Por favor, insira um ano válido que não esteja no futuro.");
             }
 
             telaCaixa.VisualizarRegistros(false);
@@ -78,17 +78,16 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
             Caixa caixa = (Caixa)repositorioCaixa.SelecionarPorId(idCaixa);
 
-            return new Revista(titulo, numero, dataAno, caixa);
+            return new Revista(titulo, numero, ano, caixa);
         }
 
         public void CadastrarEntidadeTeste()
         {
             Caixa caixa = (Caixa)repositorioCaixa.SelecionarTodos()[0];
 
-            DateTime dataAno = new DateTime(2025, 06, 20);
+            int ano = 2024;
 
-            // Agora precisamos passar o tipo da caixa como um número
-            Revista revista = new Revista("Revista Teste", "2", dataAno, caixa.Tipo, caixa);
+            Revista revista = new Revista("Revista Teste", "2", ano, caixa);
 
             repositorio.Cadastrar(revista);
         }

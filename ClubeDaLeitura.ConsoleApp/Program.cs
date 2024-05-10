@@ -63,6 +63,14 @@ namespace ClubeDaLeitura.ConsoleApp
                     if (operacaoEscolhida == '1')
                         tela.Registrar();
 
+                    else if (operacaoEscolhida == '2')
+                    {
+                        if (operacaoEscolhida == '1')
+                            telaAmigo.VisualizarAmigosComMultas();
+                        else if (operacaoEscolhida == '2')
+                            telaAmigo.QuitarMultas();
+                    }
+
                     else if (operacaoEscolhida == '3')
                         tela.Editar();
 

@@ -140,11 +140,37 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Console.WriteLine();
         }
 
+        public void VisualizarEmprestimosPorMes()
+        {
+            Console.Write("Informe o mês (número): ");
+            int mes = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Informe o ano: ");
+            int ano = Convert.ToInt32(Console.ReadLine());
+
+            foreach (Emprestimo emprestimo in repositorioEmprestimo.SelecionarTodos())
+            {
+                if (emprestimo.DataEmprestimo.Month == mes && emprestimo.DataEmprestimo.Year == ano)
+                {
+                    Console.WriteLine($"Amigo: {emprestimo.Amigo.Nome}, Revista: {emprestimo.Revista.Titulo}, Data do Empréstimo: {emprestimo.DataEmprestimo}, Concluído: {emprestimo.Concluido}");
+                }
+            }
+        }
+
+        public void VisualizarTodosEmprestimos()
+        {
+            foreach (Emprestimo emprestimo in repositorioEmprestimo.SelecionarTodos())
+            {
+                Console.WriteLine($"Amigo: {emprestimo.Amigo.Nome}, Revista: {emprestimo.Revista.Titulo}, Data do Empréstimo: {emprestimo.DataEmprestimo}, Concluído: {emprestimo.Concluido}");
+            }
+        }
+
         public void CadastrarEntidadeTeste()
         {
             Amigo amigo1 = (Amigo)repositorioAmigo.SelecionarTodos()[0];
             Revista revista1 = (Revista)repositorioRevista.SelecionarTodos()[0];
             Emprestimo emprestimo1 = new Emprestimo(amigo1, revista1, repositorioAmigo);
+            emprestimo1.DataEmprestimo = DateTime.Now.AddDays(-1);
             repositorioEmprestimo.Cadastrar(emprestimo1);
 
             Amigo amigo2 = (Amigo)repositorioAmigo.SelecionarTodos()[2];

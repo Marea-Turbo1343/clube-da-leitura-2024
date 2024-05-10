@@ -63,14 +63,6 @@ namespace ClubeDaLeitura.ConsoleApp
                     if (operacaoEscolhida == '1')
                         tela.Registrar();
 
-                    else if (operacaoEscolhida == '2')
-                    {
-                        if (operacaoEscolhida == '1')
-                            telaAmigo.VisualizarAmigosComMultas();
-                        else if (operacaoEscolhida == '2')
-                            telaAmigo.QuitarMultas();
-                    }
-
                     else if (operacaoEscolhida == '3')
                         tela.Editar();
 
@@ -80,6 +72,7 @@ namespace ClubeDaLeitura.ConsoleApp
                     else if (operacaoEscolhida == '5')
                         tela.VisualizarRegistros(true);
                 }
+
 
                 else if (opcaoPrincipalEscolhida == '2')
                 {
@@ -123,7 +116,7 @@ namespace ClubeDaLeitura.ConsoleApp
                         tela.VisualizarRegistros(true);
                 }
 
-                else if (opcaoPrincipalEscolhida == '4')
+                if (opcaoPrincipalEscolhida == '4')
                 {
                     tela = telaEmprestimo;
                     operacaoEscolhida = tela.ApresentarMenu();
@@ -140,13 +133,8 @@ namespace ClubeDaLeitura.ConsoleApp
                     else if (operacaoEscolhida == '3')
                         tela.Excluir();
 
-                    else if (operacaoEscolhida == '4')
-                        tela.VisualizarRegistros(true);
-
                     else if (operacaoEscolhida == '5')
-                    {
-                        telaEmprestimo.ConcluirEmprestimo();
-                    }
+                        ((TelaEmprestimo)tela).ConcluirEmprestimo();
                 }
 
                 else if (opcaoPrincipalEscolhida == '5')

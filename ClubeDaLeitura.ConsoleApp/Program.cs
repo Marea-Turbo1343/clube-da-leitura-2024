@@ -32,11 +32,11 @@ namespace ClubeDaLeitura.ConsoleApp
             telaRevista.CadastrarEntidadeTeste();
 
             RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
-            TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
+            RepositorioReserva repositorioReserva = new RepositorioReserva();
+            TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista, repositorioReserva);
             telaEmprestimo.tipoEntidade = "Emprestimo";
             telaEmprestimo.CadastrarEntidadeTeste();
 
-            RepositorioReserva repositorioReserva = new RepositorioReserva();
             TelaReserva telaReserva = new TelaReserva(repositorioReserva, repositorioAmigo, repositorioRevista, repositorioEmprestimo);
             telaReserva.tipoEntidade = "Reserva";
             telaReserva.CadastrarEntidadeTeste();
@@ -62,27 +62,6 @@ namespace ClubeDaLeitura.ConsoleApp
 
                     if (operacaoEscolhida == '1')
                         tela.Registrar();
-
-                    else if (operacaoEscolhida == '2')
-                    {
-                        char operacaoMultaEscolhida = telaAmigo.ApresentarMenuMulta();
-
-                        switch (operacaoMultaEscolhida)
-                        {
-                            case '1':
-                                telaAmigo.VisualizarAmigosComMultas();
-                                break;
-                            case '2':
-                                telaAmigo.QuitarMultas();
-                                break;
-                            case 'S':
-                            case 's':
-                                break;
-                            default:
-                                Console.WriteLine("Opção inválida. Por favor, escolha uma opção válida.");
-                                break;
-                        }
-                    }
 
                     else if (operacaoEscolhida == '3')
                         tela.Editar();
@@ -127,6 +106,7 @@ namespace ClubeDaLeitura.ConsoleApp
                 }
 
                 else if (opcaoPrincipalEscolhida == '5')
+                {
                     tela = telaReserva;
                     operacaoEscolhida = tela.ApresentarMenu();
 
@@ -144,6 +124,7 @@ namespace ClubeDaLeitura.ConsoleApp
 
                     else if (operacaoEscolhida == '4')
                         tela.VisualizarRegistros(true);
+                }
             }
         }
     }

@@ -1,19 +1,22 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
-using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
     internal class RepositorioAmigo : RepositorioBase
     {
-        public Amigo SelecionarPorNome(string nome)
-        {
-            foreach (Amigo amigo in registros)
-            {
-                if (amigo.Nome == nome)
-                    return amigo;
-            }
+        private List<Amigo> amigos = new List<Amigo>();
 
-            return null;
+        public void Atualizar(Amigo amigoAtualizado)
+        {
+            for (int i = 0; i < amigos.Count; i++)
+            {
+                Amigo amigoExistente = amigos[i];
+                if (amigoExistente.Id == amigoAtualizado.Id)
+                {
+                    amigos[i] = amigoAtualizado;
+                    break;
+                }
+            }
         }
     }
 }

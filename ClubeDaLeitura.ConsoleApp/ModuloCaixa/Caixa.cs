@@ -8,7 +8,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
         public string Etiqueta { get; set; }
         public string Cor { get; set; }
         public int DiasEmprestimo { get; private set; }
-        public decimal ValorMulta { get; private set; }
+        public int ValorMulta { get; private set; }
         public int Tipo { get; set; }
 
         public Caixa(string etiqueta, string cor, int tipo)
@@ -20,12 +20,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             if (Tipo == 1)
             {
                 DiasEmprestimo = 7;
-                ValorMulta = 2.0m;
+                ValorMulta = 2;
             }
             else if (Tipo == 2)
             {
                 DiasEmprestimo = 3;
-                ValorMulta = 5.0m;
+                ValorMulta = 5;
             }
         }
 

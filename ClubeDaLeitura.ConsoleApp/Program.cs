@@ -11,7 +11,7 @@ namespace ClubeDaLeitura.ConsoleApp
     {
         static void Main(string[] args)
         {
-            RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
+            RepositorioAmigo repositorioAmigo = RepositorioAmigo.Instancia;
             TelaAmigo telaAmigo = new TelaAmigo();
             telaAmigo.tipoEntidade = "Amigo";
             telaAmigo.repositorio = repositorioAmigo;

@@ -10,7 +10,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
     {
         private RepositorioEmprestimo repositorioEmprestimo;
         private RepositorioReserva repositorioReserva;
-        public RepositorioAmigo repositorioAmigo;
+        public RepositorioAmigo repositorioAmigo = RepositorioAmigo.Instancia;
         public RepositorioRevista repositorioRevista;
 
         public TelaEmprestimo(RepositorioEmprestimo repositorioEmprestimo, RepositorioAmigo repositorioAmigo, RepositorioRevista repositorioRevista, RepositorioReserva repositorioReserva)

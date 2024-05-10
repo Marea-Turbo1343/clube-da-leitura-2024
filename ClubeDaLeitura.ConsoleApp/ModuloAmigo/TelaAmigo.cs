@@ -5,8 +5,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
     internal class TelaAmigo : TelaBase
     {
-        private RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
-
+        private RepositorioAmigo repositorioAmigo = RepositorioAmigo.Instancia;
 
         public override char ApresentarMenu()
         {

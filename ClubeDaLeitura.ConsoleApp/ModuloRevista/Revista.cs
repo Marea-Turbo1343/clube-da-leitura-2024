@@ -37,10 +37,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             if (Caixa == null)
                 erros.Add("O campo \"caixa\" é obrigatório");
 
-            DateTime hoje = DateTime.Now.Date;
+            int anoAtual = DateTime.Now.Year;
 
-            if (DataAno > hoje)
-                erros.Add("O campo \"data do ano\" não pode ser maior que a data atual");
+            if (Ano > anoAtual)
+                erros.Add("O campo \"ano\" não pode ser maior que o ano atual");
 
             return erros;
         }
@@ -51,7 +51,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
             this.Titulo = novasInformacoes.Titulo;
             this.Numero = novasInformacoes.Numero;
-            this.DataAno = novasInformacoes.DataAno;
+            this.Ano = novasInformacoes.Ano;
             this.Caixa = novasInformacoes.Caixa;
         }
     }

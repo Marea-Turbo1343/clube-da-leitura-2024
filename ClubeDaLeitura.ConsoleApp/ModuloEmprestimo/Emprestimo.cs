@@ -2,6 +2,7 @@
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using System.Collections;
+using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 {
@@ -36,7 +37,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             return erros;
         }
 
-        public void Concluir()
+        public void Concluir(RepositorioReserva repositorioReserva, RepositorioEmprestimo repositorioEmprestimo)
         {
             DateTime dataHoje = DateTime.Now;
 
@@ -48,11 +49,20 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             }
 
             Concluido = true;
+
+            Reserva reserva = repositorioReserva.SelecionarPorRevista(Revista);
+            if (reserva != null && !reserva.Expirada)
+            {
+                Emprestimo novoEmprestimo = new Emprestimo(reserva.Amigo, reserva.Revista);
+                repositorioEmprestimo.Cadastrar(novoEmprestimo);
+
+                Console.WriteLine($"A revista {Revista.Titulo} foi automaticamente emprestada para {reserva.Amigo.Nome}.");
+            }
         }
 
         private void CalcularMulta(int diasAtraso)
         {
-            decimal valorMultaPorDia = 1.0m;
+            decimal valorMultaPorDia = Revista.Caixa.ValorMulta;
             Multa = valorMultaPorDia * diasAtraso;
         }
 

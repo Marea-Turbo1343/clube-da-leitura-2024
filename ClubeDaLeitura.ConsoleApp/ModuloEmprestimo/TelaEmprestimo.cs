@@ -1,6 +1,7 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
+using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using System.Collections;
 
@@ -12,6 +13,32 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         private RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
         private RepositorioRevista repositorioRevista = new RepositorioRevista();
         private RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
+
+        public override char ApresentarMenu()
+        {
+            Console.Clear();
+
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine($"        Gestão de {tipoEntidade}s        ");
+            Console.WriteLine("----------------------------------------");
+
+            Console.WriteLine();
+
+            Console.WriteLine($"1 - Cadastrar {tipoEntidade}");
+            Console.WriteLine($"2 - Editar {tipoEntidade}");
+            Console.WriteLine($"3 - Visualizar {tipoEntidade}s");
+            Console.WriteLine($"4 - Excluir {tipoEntidade}s");
+            Console.WriteLine($"5 - Concluir {tipoEntidade}");
+
+            Console.WriteLine("S - Voltar");
+
+            Console.WriteLine();
+
+            Console.Write("Escolha uma das opções: ");
+            char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
+
+            return operacaoEscolhida;
+        }
 
         public override void VisualizarRegistros(bool exibirTitulo)
         {
@@ -45,30 +72,74 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
         protected override EntidadeBase ObterRegistro()
         {
-            Console.Write("Digite o nome do amigo: ");
-            string nomeAmigo = Console.ReadLine();
+            Console.WriteLine("Amigos:");
+            ArrayList amigos = repositorioAmigo.SelecionarTodos();
+            foreach (Amigo amigo in amigos)
+            {
+                Console.WriteLine($"ID: {amigo.Id}, Nome: {amigo.Nome}");
+            }
 
-            Console.Write("Digite o título da revista: ");
-            string tituloRevista = Console.ReadLine();
+            Console.Write("Digite o ID do amigo: ");
+            int idAmigo = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Digite o ano da revista: ");
-            int anoRevista = Convert.ToInt32(Console.ReadLine()); // Alterado de DateTime para int
+            Amigo amigoSelecionado = (Amigo)repositorioAmigo.SelecionarPorId(idAmigo);
 
-            Amigo amigoSelecionado = repositorioAmigo.SelecionarPorNome(nomeAmigo);
-            Revista revistaSelecionada = repositorioRevista.SelecionarPorTitulo(tituloRevista);
+            Console.WriteLine("Revistas disponíveis:");
+            ArrayList revistas = repositorioRevista.SelecionarTodos();
+            foreach (Revista revista in revistas)
+            {
+                Emprestimo emprestimo = (Emprestimo)repositorioEmprestimo.SelecionarPorRevista(revista);
+                if (emprestimo == null || emprestimo.Concluido)
+                {
+                    Console.WriteLine($"ID: {revista.Id}, Título: {revista.Titulo}");
+                }
+            }
 
-            return new Emprestimo(amigoSelecionado, revistaSelecionada);
+            Console.Write("Digite o ID da revista: ");
+            int idRevista = Convert.ToInt32(Console.ReadLine());
+
+            Revista revistaSelecionada = (Revista)repositorioRevista.SelecionarPorId(idRevista);
+
+            Emprestimo novoEmprestimo = new Emprestimo(amigoSelecionado, revistaSelecionada);
+            novoEmprestimo.DataEmprestimo = DateTime.Now;
+            novoEmprestimo.DataDevolucao = DateTime.Now.AddDays(revistaSelecionada.Caixa.DiasEmprestimo);
+
+            return novoEmprestimo;
+        }
+
+
+        public void ConcluirEmprestimo()
+        {
+            RepositorioReserva repositorioReserva = new RepositorioReserva();
+            RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
+
+            Console.Write("Digite o ID do empréstimo que deseja concluir: ");
+            int idEmprestimo = Convert.ToInt32(Console.ReadLine());
+
+            Emprestimo emprestimo = (Emprestimo)repositorioEmprestimo.SelecionarPorId(idEmprestimo);
+
+            if (emprestimo == null)
+            {
+                Console.WriteLine("Empréstimo não encontrado.");
+                return;
+            }
+
+            emprestimo.Concluir(repositorioReserva, repositorioEmprestimo);
+
+            if (emprestimo.Multa > 0)
+            {
+                Console.WriteLine($"O empréstimo foi concluído, mas há uma multa de {emprestimo.Multa} reais devido ao atraso na devolução.");
+            }
+            else
+            {
+                Console.WriteLine("O empréstimo foi concluído com sucesso.");
+            }
         }
 
         public void CadastrarEntidadeTeste()
         {
-            Amigo amigo = new Amigo("Bobby Tables", "Pedro", "49 9999-9521", "Rua Z5");
-            Caixa caixa = new Caixa("ABC123", "Verde", 1);
-            Revista revista = new Revista("Revista TCHOLA", "1", 2024, caixa);
-
-            repositorioAmigo.Cadastrar(amigo);
-            repositorioCaixa.Cadastrar(caixa);
-            repositorioRevista.Cadastrar(revista);
+            Amigo amigo = (Amigo)repositorioAmigo.SelecionarTodos()[0];
+            Revista revista = (Revista)repositorioRevista.SelecionarTodos()[0];
 
             Emprestimo emprestimo = new Emprestimo(amigo, revista);
 

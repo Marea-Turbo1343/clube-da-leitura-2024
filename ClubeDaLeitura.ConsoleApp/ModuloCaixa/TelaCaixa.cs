@@ -55,7 +55,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 
         public void CadastrarEntidadeTeste()
         {
-            Caixa caixa = new Caixa("Romance", "Vermelho", 2);
+            Caixa caixa = new Caixa("Romance", "Vermelha", 2);
 
             repositorio.Cadastrar(caixa);
         }

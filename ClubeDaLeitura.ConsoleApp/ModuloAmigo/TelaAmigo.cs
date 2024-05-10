@@ -30,28 +30,26 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             Console.Write("Escolha uma das opções: ");
             char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
 
-            return operacaoEscolhida;
-        }
+            if (operacaoEscolhida == '2')
+            {
+                Console.Clear();
 
-        public char ApresentarMenuMulta()
-        {
-            Console.Clear();
+                Console.WriteLine("----------------------------------------");
+                Console.WriteLine($"        Multa de {tipoEntidade}s        ");
+                Console.WriteLine("----------------------------------------");
 
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine($"        Multa de {tipoEntidade}s        ");
-            Console.WriteLine("----------------------------------------");
+                Console.WriteLine();
 
-            Console.WriteLine();
+                Console.WriteLine($"1 - Visualizar amigos com multas");
+                Console.WriteLine($"2 - Quitar multas");
 
-            Console.WriteLine($"1 - Visualizar amigos com multas");
-            Console.WriteLine($"2 - Quitar multas");
+                Console.WriteLine("S - Voltar");
 
-            Console.WriteLine("S - Voltar");
+                Console.WriteLine();
 
-            Console.WriteLine();
-
-            Console.Write("Escolha uma das opções: ");
-            char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
+                Console.Write("Escolha uma das opções: ");
+                operacaoEscolhida = Convert.ToChar(Console.ReadLine());
+            }
 
             return operacaoEscolhida;
         }

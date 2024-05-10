@@ -108,6 +108,47 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             return novoAmigo;
         }
 
+        public void VisualizarAmigosComMultas()
+        {
+            Console.WriteLine("\nAmigos com multas:");
+
+            // Percorre a lista de amigos
+            foreach (Amigo amigo in repositorioAmigo.SelecionarTodos())
+            {
+                // Verifica se o amigo tem multa
+                if (amigo.Multa > 0)
+                {
+                    Console.WriteLine($"ID: {amigo.Id}, Nome: {amigo.Nome}, Multa: {amigo.Multa}");
+                }
+            }
+        }
+
+        public void QuitarMultas()
+        {
+            Console.WriteLine("\nQuitar multas de amigos:");
+
+            // Exibe a lista de amigos com multas
+            VisualizarAmigosComMultas();
+
+            Console.Write("Digite o ID do amigo que deseja quitar a multa: ");
+            int idAmigo = Convert.ToInt32(Console.ReadLine());
+
+            // Encontra o amigo pelo ID
+            Amigo amigo = (Amigo)repositorioAmigo.SelecionarPorId(idAmigo);
+
+            // Verifica se o amigo existe e tem multa
+            if (amigo != null && amigo.Multa > 0)
+            {
+                // Quita a multa do amigo
+                amigo.Multa = 0;
+                Console.WriteLine($"A multa do amigo {amigo.Nome} foi quitada.");
+            }
+            else
+            {
+                Console.WriteLine("Amigo não encontrado ou não possui multa.");
+            }
+        }
+
         public void CadastrarEntidadeTeste()
         {
             Amigo amigo1 = new Amigo("Joao Silva", "Pedro Silva", "49 99999-9521", "Rua Z5");

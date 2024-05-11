@@ -53,7 +53,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         {
             DateTime dataHoje = DateTime.Now;
 
-            DataDevolucaoReal = dataHoje;
+            if (DataDevolucaoReal == null)
+            {
+                DataDevolucaoReal = dataHoje;
+            }
 
             if (DataDevolucaoReal > DataDevolucao)
             {

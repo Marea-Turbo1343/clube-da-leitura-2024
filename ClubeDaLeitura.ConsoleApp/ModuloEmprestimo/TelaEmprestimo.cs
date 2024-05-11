@@ -315,8 +315,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Emprestimo emprestimo2 = new Emprestimo(amigo2, revista2, repositorioAmigo);
             emprestimo2.DataEmprestimo = DateTime.Now.AddDays(-10);
             emprestimo2.DataDevolucao = DateTime.Now.AddDays(-5);
-            emprestimo2.Concluir(repositorioReserva, repositorioEmprestimo);
             repositorioEmprestimo.Cadastrar(emprestimo2);
+            emprestimo2.Concluir(repositorioReserva, repositorioEmprestimo);
         }
     }
 }

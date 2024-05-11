@@ -33,7 +33,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -15}",
+                "{0, -10} | {1, -25} | {2, -25} | {3, -25} | {4, -25}",
                 "Id", "Amigo", "Revista", "DataReserva", "Expirada"
             );
 
@@ -41,9 +41,27 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 
             foreach (Reserva reserva in reservasCadastradas)
             {
+                string statusReserva;
+                if (reserva.Expirada)
+                {
+                    Emprestimo emprestimo = (Emprestimo)repositorioEmprestimo.SelecionarPorRevista(reserva.Revista);
+                    if (emprestimo != null && emprestimo.Amigo.Id == reserva.Amigo.Id && !emprestimo.Concluido)
+                    {
+                        statusReserva = "Empréstimo realizado com sucesso";
+                    }
+                    else
+                    {
+                        statusReserva = "Reserva Expirada";
+                    }
+                }
+                else
+                {
+                    statusReserva = "Reserva válida";
+                }
+
                 Console.WriteLine(
-                    "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -15}",
-                    reserva.Id, reserva.Amigo.Nome, reserva.Revista.Titulo, reserva.DataReserva, reserva.Expirada
+                    "{0, -10} | {1, -25} | {2, -25} | {3, -25} | {4, -25}",
+                    reserva.Id, reserva.Amigo.Nome, reserva.Revista.Titulo, reserva.DataReserva, statusReserva
                 );
             }
 
@@ -60,12 +78,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
                 Console.WriteLine($"ID: {amigo.Id}, Nome: {amigo.Nome}");
             }
 
-            Console.Write("Digite o ID do amigo: ");
+            Console.Write("\nDigite o ID do amigo: ");
             int idAmigo = Convert.ToInt32(Console.ReadLine());
 
             Amigo amigoSelecionado = (Amigo)repositorioAmigo.SelecionarPorId(idAmigo);
 
-            Console.WriteLine("Revistas disponíveis:");
+            Console.WriteLine("\nRevistas disponíveis:");
             ArrayList revistas = repositorioRevista.SelecionarTodos();
             foreach (Revista revista in revistas)
             {
@@ -76,10 +94,20 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
                 }
             }
 
-            Console.Write("Digite o ID da revista: ");
+            Console.Write("\nDigite o ID da revista: ");
             int idRevista = Convert.ToInt32(Console.ReadLine());
 
             Revista revistaSelecionada = (Revista)repositorioRevista.SelecionarPorId(idRevista);
+
+            ArrayList reservas = repositorioReserva.SelecionarTodos();
+            foreach (Reserva reserva in reservas)
+            {
+                if (reserva.Revista.Id == revistaSelecionada.Id && !reserva.Expirada)
+                {
+                    Console.WriteLine("\nEsta revista já foi reservada. Por favor, escolha outra revista.");
+                    return null;
+                }
+            }
 
             return new Reserva(amigoSelecionado, revistaSelecionada);
         }

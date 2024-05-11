@@ -77,7 +77,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -15} | {2, -15} | {3, -15} | {4, -15}",
+                "{0, -10} | {1, -25} | {2, -25} | {3, -25} | {4, -25}",
                 "Id", "Nome", "NomeResponsavel", "Telefone", "Endereco"
             );
 
@@ -89,7 +89,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
                     continue;
 
                 Console.WriteLine(
-                    "{0, -10} | {1, -15} | {2, -15} | {3, -15} | {4, -15}",
+                    "{0, -10} | {1, -25} | {2, -25} | {3, -25} | {4, -25}",
                     amigo.Id, amigo.Nome, amigo.NomeResponsavel, amigo.Telefone, amigo.Endereco
                 );
             }
@@ -133,7 +133,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 
             if (!temAmigoComMulta)
             {
-                Console.WriteLine("Não existem amigos com multas");
+                Console.WriteLine("\nNão existem amigos com multas");
             }
 
             Console.ReadLine();
@@ -146,7 +146,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 
             VisualizarAmigosComMultas();
 
-            Console.Write("Digite o ID do amigo que deseja quitar a multa: ");
+            Console.Write("\nDigite o ID do amigo que deseja quitar a multa: ");
             int idAmigo = Convert.ToInt32(Console.ReadLine());
 
             Amigo amigo = (Amigo)repositorioAmigo.SelecionarPorId(idAmigo);
@@ -154,11 +154,11 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             if (amigo != null && amigo.Multa > 0)
             {
                 amigo.Multa = 0;
-                Console.WriteLine($"A multa do amigo {amigo.Nome} foi quitada.");
+                Console.WriteLine($"\nA multa do amigo {amigo.Nome} foi quitada.");
             }
             else
             {
-                Console.WriteLine("Amigo não encontrado ou não possui multa.");
+                Console.WriteLine("\nAmigo não encontrado ou não possui multa.");
             }
 
             Console.ReadLine();
@@ -173,7 +173,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             Amigo amigo2 = new Amigo("Paulo Souza", "Luciano Souza", "49 99876-4321", "Rua G5");
             repositorio.Cadastrar(amigo2);
 
-            Amigo amigo3 = new Amigo("Novo Amigo", "Responsavel Novo Amigo", "49 12345-6789", "Rua X9");
+            Amigo amigo3 = new Amigo("Wesley Santos", "Maicon Santos", "49 12345-6789", "Rua D9");
             repositorio.Cadastrar(amigo3);
         }
     }

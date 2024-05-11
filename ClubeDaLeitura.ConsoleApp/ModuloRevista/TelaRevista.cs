@@ -56,7 +56,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
                 if (int.TryParse(numero, out _))
                     break;
 
-                Console.WriteLine("Número inválido. Por favor, insira um número válido.");
+                Console.WriteLine("\nNúmero inválido. Por favor, insira um número válido.");
+                Console.ReadLine();
+                Console.WriteLine();
             }
 
             int ano;
@@ -68,12 +70,14 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
                 if (int.TryParse(anoStr, out ano) && ano <= DateTime.Now.Year)
                     break;
 
-                Console.WriteLine("Ano inválido. Por favor, insira um ano válido que não esteja no futuro.");
+                Console.WriteLine("\nAno inválido. Por favor, insira um ano válido que não esteja no futuro.");
+                Console.ReadLine();
+                Console.WriteLine();
             }
 
             telaCaixa.VisualizarRegistros(false);
 
-            Console.Write("Digite o ID da caixa da revista: ");
+            Console.Write("\nDigite o ID da caixa da revista: ");
             int idCaixa = Convert.ToInt32(Console.ReadLine());
 
             Caixa caixa = (Caixa)repositorioCaixa.SelecionarPorId(idCaixa);
@@ -87,7 +91,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
             int ano = 2024;
 
-            Revista revista = new Revista("Revista Teste", "2", ano, caixa);
+            Revista revista = new Revista("Revista Love", "1", ano, caixa);
 
             repositorio.Cadastrar(revista);
         }

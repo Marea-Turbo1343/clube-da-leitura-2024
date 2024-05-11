@@ -73,7 +73,6 @@ namespace ClubeDaLeitura.ConsoleApp
                         tela.VisualizarRegistros(true);
                 }
 
-
                 else if (opcaoPrincipalEscolhida == '2')
                 {
                     tela = telaCaixa;

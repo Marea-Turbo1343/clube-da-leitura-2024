@@ -59,6 +59,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                 Emprestimo novoEmprestimo = new Emprestimo(reserva.Amigo, reserva.Revista, repositorioAmigo);
                 repositorioEmprestimo.Cadastrar(novoEmprestimo);
 
+                reserva.Expirada = true;
+                repositorioReserva.Editar(reserva.Id, reserva);
+
                 Console.WriteLine($"A revista {Revista.Titulo} foi automaticamente emprestada para {reserva.Amigo.Nome}.");
             }
         }

@@ -215,7 +215,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
             if (emprestimo == null)
             {
-                Console.WriteLine("O empréstimo não pode ser registrado.");
+                Console.WriteLine("\nO empréstimo não pode ser registrado.");
                 return;
             }
 
@@ -224,7 +224,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             {
                 if (reserva.Amigo.Id == emprestimo.Amigo.Id && !reserva.Expirada)
                 {
-                    Console.WriteLine("O amigo já possui uma reserva válida e não pode realizar um novo empréstimo.");
+                    Console.WriteLine("\nO amigo já possui uma reserva válida e não pode realizar um novo empréstimo.");
                     return;
                 }
             }
@@ -237,26 +237,38 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
         public void ConcluirEmprestimo()
         {
-            Console.Write("Digite o ID do empréstimo que deseja concluir: ");
+            Console.Write("\nDigite o ID do empréstimo que deseja concluir: ");
             int idEmprestimo = Convert.ToInt32(Console.ReadLine());
 
             Emprestimo emprestimo = (Emprestimo)this.repositorioEmprestimo.SelecionarPorId(idEmprestimo);
 
             if (emprestimo == null)
             {
-                Console.WriteLine("Empréstimo não encontrado.");
+                Console.WriteLine("\nEmpréstimo não encontrado.");
                 return;
             }
 
             emprestimo.Concluir(this.repositorioReserva, this.repositorioEmprestimo);
 
+            ArrayList reservas = repositorioReserva.SelecionarTodos();
+            foreach (Reserva reserva in reservas)
+            {
+                if (reserva.Amigo.Id == emprestimo.Amigo.Id && reserva.Revista.Id == emprestimo.Revista.Id && !reserva.Expirada)
+                {
+                    reserva.Expirada = true;
+
+                    repositorioReserva.Editar(reserva.Id, reserva);
+                    break;
+                }
+            }
+
             if (emprestimo.Multa > 0)
             {
-                Console.WriteLine($"O empréstimo foi concluído, mas há uma multa de {emprestimo.Multa} reais devido ao atraso na devolução.");
+                Console.WriteLine($"\nO empréstimo foi concluído, mas há uma multa de {emprestimo.Multa} reais devido ao atraso na devolução.");
             }
             else
             {
-                Console.WriteLine("O empréstimo foi concluído com sucesso.");
+                Console.WriteLine("\nO empréstimo foi concluído com sucesso.");
             }
             Console.ReadLine();
             Console.WriteLine();

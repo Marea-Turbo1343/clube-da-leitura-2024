@@ -53,15 +53,16 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         {
             DateTime dataHoje = DateTime.Now;
 
-            if (dataHoje > DataDevolucao)
+            DataDevolucaoReal = dataHoje;
+
+            if (DataDevolucaoReal > DataDevolucao)
             {
-                TimeSpan diferenca = dataHoje - DataDevolucao;
+                TimeSpan diferenca = DataDevolucaoReal.Value - DataDevolucao;
                 int diasDiferenca = diferenca.Days;
                 CalcularMulta(diasDiferenca);
             }
 
             Concluido = true;
-            DataDevolucaoReal = DateTime.Now;
 
             Reserva reserva = repositorioReserva.SelecionarPorRevista(Revista);
             if (reserva != null && !reserva.Expirada)

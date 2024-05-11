@@ -87,8 +87,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             }
 
             Console.WriteLine(
-                "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -20} | {5, -10}",
-                "Id", "Amigo", "Revista", "Data do Emprestimo", "Data de Devolucao", "Concluído"
+                "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -30} | {5, -30} | {6, -10} | {7, -10}",
+                "Id", "Amigo", "Revista", "Data do Emprestimo", "Data de Devolucao Esperada", "Data de Devolucao Real", "Multa", "Concluído"
             );
 
             ArrayList emprestimosCadastrados = repositorioEmprestimo.SelecionarTodos();
@@ -97,8 +97,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             {
                 string concluido = emprestimo.Concluido ? "Sim" : "Não";
                 Console.WriteLine(
-                    "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -20} | {5, -10}",
-                    emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Revista.Titulo, emprestimo.DataEmprestimo, emprestimo.DataDevolucao, concluido
+                    "{0, -10} | {1, -15} | {2, -20} | {3, -20} | {4, -30} | {5, -30} | {6, -10} | {7, -10}",
+                    emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Revista.Titulo, emprestimo.DataEmprestimo, emprestimo.DataDevolucao, emprestimo.DataDevolucaoReal, emprestimo.Multa, concluido
                 );
             }
 
@@ -307,15 +307,17 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Amigo amigo1 = (Amigo)repositorioAmigo.SelecionarTodos()[2];
             Revista revista1 = (Revista)repositorioRevista.SelecionarTodos()[0];
             Emprestimo emprestimo1 = new Emprestimo(amigo1, revista1, repositorioAmigo);
-            emprestimo1.DataEmprestimo = DateTime.Now.Date.AddDays(-20);
-            emprestimo1.DataDevolucao = DateTime.Now.Date.AddDays(-15);
+            emprestimo1.DataEmprestimo = new DateTime(2024, 4, 20); // 20/04/2024
+            emprestimo1.DataDevolucao = new DateTime(2024, 4, 23); // 23/04/2024
             repositorioEmprestimo.Cadastrar(emprestimo1);
+            emprestimo1.DataDevolucaoReal = new DateTime(2024, 4, 25); // 25/04/2024
             emprestimo1.Concluir(repositorioReserva, repositorioEmprestimo);
 
             Amigo amigo2 = (Amigo)repositorioAmigo.SelecionarTodos()[0];
             Revista revista2 = (Revista)repositorioRevista.SelecionarTodos()[0];
             Emprestimo emprestimo2 = new Emprestimo(amigo2, revista2, repositorioAmigo);
-            emprestimo2.DataEmprestimo = DateTime.Now.Date.AddDays(-1);
+            emprestimo2.DataEmprestimo = new DateTime(2024, 5, 9); // 09/05/2024
+            emprestimo2.DataDevolucao = new DateTime(2024, 5, 12); // 12/05/2024
             repositorioEmprestimo.Cadastrar(emprestimo2);
         }
     }

@@ -14,17 +14,26 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         public Revista Revista { get; set; }
         public DateTime DataEmprestimo { get; set; }
         public DateTime DataDevolucao { get; set; }
+        public DateTime? DataDevolucaoReal { get; set; }
         public bool Concluido { get; set; }
         public int Multa { get; private set; }
 
         public Emprestimo(Amigo amigo, Revista revista, RepositorioAmigo repositorioAmigo)
         {
+            this.Amigo = amigo;
+            this.Revista = revista;
             this.repositorioAmigo = repositorioAmigo;
-            Amigo = amigo;
-            Revista = revista;
-            DataEmprestimo = DateTime.Now;
-            DataDevolucao = DataEmprestimo.AddDays(Revista.Caixa.DiasEmprestimo);
-            Concluido = false;
+            this.DataEmprestimo = DateTime.Now.Date;
+            this.Concluido = false;
+
+            if (Revista.Caixa.Tipo == 2)
+            {
+                this.DataDevolucao = this.DataEmprestimo.AddDays(3);
+            }
+            else
+            {
+                this.DataDevolucao = this.DataEmprestimo.AddDays(7);
+            }
         }
 
         public override ArrayList Validar()
@@ -52,6 +61,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             }
 
             Concluido = true;
+            DataDevolucaoReal = DateTime.Now;
 
             Reserva reserva = repositorioReserva.SelecionarPorRevista(Revista);
             if (reserva != null && !reserva.Expirada)

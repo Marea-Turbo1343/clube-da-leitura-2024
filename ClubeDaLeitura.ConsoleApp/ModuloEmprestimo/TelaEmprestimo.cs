@@ -304,19 +304,19 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
         public void CadastrarEntidadeTeste()
         {
-            Amigo amigo1 = (Amigo)repositorioAmigo.SelecionarTodos()[0];
+            Amigo amigo1 = (Amigo)repositorioAmigo.SelecionarTodos()[2];
             Revista revista1 = (Revista)repositorioRevista.SelecionarTodos()[0];
             Emprestimo emprestimo1 = new Emprestimo(amigo1, revista1, repositorioAmigo);
-            emprestimo1.DataEmprestimo = DateTime.Now.AddDays(-1);
+            emprestimo1.DataEmprestimo = DateTime.Now.Date.AddDays(-20);
+            emprestimo1.DataDevolucao = DateTime.Now.Date.AddDays(-15);
             repositorioEmprestimo.Cadastrar(emprestimo1);
+            emprestimo1.Concluir(repositorioReserva, repositorioEmprestimo);
 
-            Amigo amigo2 = (Amigo)repositorioAmigo.SelecionarTodos()[2];
+            Amigo amigo2 = (Amigo)repositorioAmigo.SelecionarTodos()[0];
             Revista revista2 = (Revista)repositorioRevista.SelecionarTodos()[0];
             Emprestimo emprestimo2 = new Emprestimo(amigo2, revista2, repositorioAmigo);
-            emprestimo2.DataEmprestimo = DateTime.Now.AddDays(-10);
-            emprestimo2.DataDevolucao = DateTime.Now.AddDays(-5);
+            emprestimo2.DataEmprestimo = DateTime.Now.Date.AddDays(-1);
             repositorioEmprestimo.Cadastrar(emprestimo2);
-            emprestimo2.Concluir(repositorioReserva, repositorioEmprestimo);
         }
     }
 }
